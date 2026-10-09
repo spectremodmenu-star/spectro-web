@@ -11,6 +11,12 @@
 //                   admin = el secreto en claro; se compara su SHA-256 con ADMIN_HASH.
 //                   uses: cuantas PCs distintas pueden canjearlo (0 = ilimitado). Default 1.
 //                   days: vigencia en dias (0/ausente = permanente).
+//   POST /api/code {op:'status', admin, code, product?}   -> quienes lo canjearon y su estado
+//   POST /api/code {op:'revoke', admin, code|hwid, product?} -> DA DE BAJA (corta el acceso)
+//                   revoke por code = corta a TODAS las PCs que lo canjearon.
+//                   revoke por hwid = corta solo esa PC.
+//                   Surte efecto cuando la PC vuelve a estar online (igual que una
+//                   licencia: offline hay una gracia por la cache local del exe).
 //
 // El secreto NO vive aca: solo su hash (ver .secrets/admin.txt en la PC del autor).
 // Env vars: KV_REST_API_URL + KV_REST_API_TOKEN (las setea la integracion KV de Vercel).
@@ -104,6 +110,8 @@ module.exports = async (req, res) => {
       const expiresAt = rec.days && rec.days > 0 ? now + rec.days * 86400000 : FOREVER_MS;
       await kv(['SET', trialKey, JSON.stringify({ issuedAt: now, expiresAt, source: 'code:' + code })]);
       if (rec.uses > 0) { rec.used += 1; await kv(['SET', codeKey, JSON.stringify(rec)]); }
+      // Anota la PC bajo el codigo, asi un revoke por codigo las encuentra a todas.
+      await kv(['SADD', `code:${product}:${code}:hwids`, hwid]);
 
       res.status(200).json({
         status: 'active',
@@ -111,6 +119,46 @@ module.exports = async (req, res) => {
         expiresAt: new Date(expiresAt).toISOString(),
         isNew: true,
       });
+      return;
+    }
+
+    // --- Ver quien canjeo un codigo y su estado (admin) ---------------------
+    if (op === 'status') {
+      const given = crypto.createHash('sha256').update(String(body.admin || '')).digest('hex');
+      if (given !== ADMIN_HASH) { res.status(401).json({ error: 'admin' }); return; }
+      const code = normCode(body.code);
+      if (code.length < 4) { res.status(400).json({ error: 'code' }); return; }
+      const rec = parse(await kv(['GET', `code:${product}:${code}`]));
+      const hwids = (await kv(['SMEMBERS', `code:${product}:${code}:hwids`])) || [];
+      const pcs = [];
+      for (const h of hwids) {
+        const t = parse(await kv(['GET', `trial:${product}:${h}`]));
+        pcs.push({
+          hwid: h,
+          state: !t ? 'revoked' : (t.expiresAt > now ? 'active' : 'expired'),
+          expiresAt: t ? new Date(t.expiresAt).toISOString() : null,
+        });
+      }
+      res.status(200).json({ code, product, uses: rec ? rec.uses : null, used: rec ? rec.used : null, pcs });
+      return;
+    }
+
+    // --- Dar de baja: cortar el acceso (admin) ------------------------------
+    if (op === 'revoke') {
+      const given = crypto.createHash('sha256').update(String(body.admin || '')).digest('hex');
+      if (given !== ADMIN_HASH) { res.status(401).json({ error: 'admin' }); return; }
+      const hwid = String(body.hwid || '').trim();
+      const code = normCode(body.code);
+      let cut = 0;
+      if (hwid.length >= 3) {
+        await kv(['DEL', `trial:${product}:${hwid}`]); cut = 1;
+      } else if (code.length >= 4) {
+        const hwids = (await kv(['SMEMBERS', `code:${product}:${code}:hwids`])) || [];
+        for (const h of hwids) { await kv(['DEL', `trial:${product}:${h}`]); cut++; }
+      } else {
+        res.status(400).json({ error: 'need code or hwid' }); return;
+      }
+      res.status(200).json({ ok: true, revoked: cut });
       return;
     }
 
