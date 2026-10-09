@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Panel · Spectro / CsTalent</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0a0c10;--card:#12161d;--card2:#161c25;--line:rgba(255,255,255,.1);
+    --fg:#eef1f4;--muted:#9aa4af;--accent:#39ff6a;--danger:#ff5b5b;--field:#1b2029;--radius:12px}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.6 Inter,system-ui,sans-serif;
+    padding:24px 16px 60px}
+  .wrap{max-width:720px;margin:0 auto}
+  h1,h2{font-family:"Space Grotesk",sans-serif;letter-spacing:-.01em}
+  h1{font-size:24px;margin:0 0 4px;display:flex;align-items:center;gap:10px}
+  h1 .mark{width:26px;height:26px;fill:var(--accent)}
+  .sub{color:var(--muted);margin:0 0 22px;font-size:14px}
+  .card{background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);
+    border-radius:var(--radius);padding:18px 18px;margin-bottom:16px}
+  .card h2{font-size:16px;margin:0 0 14px}
+  label{display:block;font-size:12.5px;color:var(--muted);margin:10px 0 4px;text-transform:uppercase;letter-spacing:.06em}
+  input,select{width:100%;background:var(--field);border:1px solid var(--line);color:var(--fg);
+    border-radius:9px;padding:10px 12px;font:14px Inter,sans-serif}
+  input:focus,select:focus{outline:none;border-color:var(--accent)}
+  .row{display:flex;gap:10px;flex-wrap:wrap}
+  .row>div{flex:1;min-width:120px}
+  button{background:linear-gradient(180deg,#54ff82,#20d85e);color:#05210f;border:0;font-weight:700;
+    font-size:14px;padding:11px 18px;border-radius:10px;cursor:pointer;margin-top:12px}
+  button:hover{filter:brightness(1.07)}
+  button.ghost{background:transparent;color:var(--fg);border:1px solid var(--line)}
+  button.ghost:hover{border-color:var(--accent);color:var(--accent)}
+  button.danger{background:transparent;color:var(--danger);border:1px solid rgba(255,91,91,.5)}
+  button.danger:hover{background:rgba(255,91,91,.1)}
+  .btns{display:flex;gap:10px;flex-wrap:wrap}
+  .out{margin-top:12px;background:#0c0f14;border:1px solid var(--line);border-radius:9px;padding:12px;
+    font:12.5px/1.5 Consolas,monospace;white-space:pre-wrap;word-break:break-word;color:#cfe8d6;min-height:20px}
+  .hint{color:var(--muted);font-size:12.5px;margin:6px 0 0}
+  table{width:100%;border-collapse:collapse;margin-top:10px;font-size:12.5px}
+  th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line)}
+  th{color:var(--muted);font-weight:600;text-transform:uppercase;font-size:11px;letter-spacing:.05em}
+  .pill{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11px;font-weight:600}
+  .pill.active{background:rgba(57,255,106,.14);color:var(--accent)}
+  .pill.expired,.pill.revoked{background:rgba(255,91,91,.14);color:var(--danger)}
+  code{background:rgba(57,255,106,.12);color:var(--accent);padding:1px 6px;border-radius:5px}
+  .warn{background:rgba(255,210,63,.1);border:1px solid rgba(255,210,63,.3);color:#ffe59a;
+    border-radius:9px;padding:10px 12px;font-size:13px;margin-bottom:16px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1><svg class="mark" viewBox="0 0 64 64"><path d="M12 52 L12 31 C12 20 20.95 11 32 11 C43.05 11 52 20 52 31 L52 52 L47 47 L42 52 L37 47 L32 52 L27 47 L22 52 L17 47 Z"/><circle cx="25.5" cy="30" r="3.6" fill="#0a0c10"/><circle cx="38.5" cy="30" r="3.6" fill="#0a0c10"/></svg> Panel de códigos</h1>
+  <p class="sub">Crear, ver y dar de baja códigos de Spectro (FiveM) y CsTalent (CS2).</p>
+
+  <div class="warn">🔒 Tu <b>secreto de admin</b> vive solo en este navegador (no se guarda en la web). Está en tu PC, archivo <code>.secrets/admin.txt</code>. No lo compartas.</div>
+
+  <div class="card">
+    <h2>Acceso</h2>
+    <div class="row">
+      <div style="flex:2">
+        <label>Secreto de admin</label>
+        <input id="secret" type="password" placeholder="pegá tu secreto" autocomplete="off">
+      </div>
+      <div>
+        <label>Producto</label>
+        <select id="product">
+          <option value="spectro">Spectro (FiveM)</option>
+          <option value="cstalent">CsTalent (CS2)</option>
+        </select>
+      </div>
+    </div>
+    <p class="hint">Se recuerda mientras tengas esta pestaña abierta.</p>
+  </div>
+
+  <div class="card">
+    <h2>Crear código</h2>
+    <div class="row">
+      <div style="flex:2">
+        <label>Código</label>
+        <input id="c_code" placeholder="AMIGO-XXXX" autocomplete="off">
+      </div>
+      <div><label>Usos (0 = ∞)</label><input id="c_uses" type="number" value="1" min="0"></div>
+      <div><label>Días (0 = para siempre)</label><input id="c_days" type="number" value="0" min="0"></div>
+    </div>
+    <div class="btns">
+      <button onclick="gen()">🎲 Generar al azar</button>
+      <button onclick="create()">Crear código</button>
+    </div>
+    <div id="c_out" class="out"></div>
+  </div>
+
+  <div class="card">
+    <h2>Ver uso de un código</h2>
+    <label>Código</label>
+    <input id="s_code" placeholder="AMIGO-XXXX" autocomplete="off">
+    <div class="btns">
+      <button class="ghost" onclick="status()">Ver quién lo usó</button>
+      <button class="ghost" onclick="listAll()">Listar TODAS las PCs</button>
+    </div>
+    <div id="s_out" class="out"></div>
+  </div>
+
+  <div class="card">
+    <h2>Dar de baja (cortar acceso)</h2>
+    <p class="hint" style="margin-bottom:8px">Por código corta a todas sus PCs; por HWID corta solo esa. Efecto cuando la PC vuelve a estar online.</p>
+    <div class="row">
+      <div><label>Código</label><input id="r_code" placeholder="AMIGO-XXXX" autocomplete="off"></div>
+      <div><label>o HWID puntual</label><input id="r_hwid" placeholder="hwid" autocomplete="off"></div>
+    </div>
+    <button class="danger" onclick="revoke()">Dar de baja</button>
+    <div id="r_out" class="out"></div>
+  </div>
+</div>
+
+<script>
+const API='https://spectrofivem.vercel.app/api/code';
+const $=id=>document.getElementById(id);
+$('secret').value=sessionStorage.getItem('adm')||'';
+$('secret').addEventListener('input',e=>sessionStorage.setItem('adm',e.target.value));
+const prod=()=>$('product').value, sec=()=>$('secret').value.trim();
+
+async function call(obj){
+  try{
+    const r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(obj)});
+    let j; const t=await r.text(); try{j=JSON.parse(t)}catch{j={raw:t}}
+    return {ok:r.ok,status:r.status,j};
+  }catch(e){ return {ok:false,status:0,j:{error:'sin conexión: '+e.message}}; }
+}
+function need(out){ if(!sec()){ $(out).textContent='Pegá primero tu secreto de admin arriba.'; return false; } return true; }
+function gen(){
+  const a='ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; let s='';
+  for(let i=0;i<5;i++) s+=a[Math.floor(Math.random()*a.length)];
+  $('c_code').value=(prod()==='cstalent'?'CSTALENT':'SPECTRO')+'-AMIGO-'+s;
+}
+async function create(){
+  if(!need('c_out'))return;
+  $('c_out').textContent='...';
+  const r=await call({op:'mkcode',admin:sec(),product:prod(),code:$('c_code').value,uses:+$('c_uses').value,days:+$('c_days').value});
+  if(r.status===401){ $('c_out').textContent='❌ Secreto incorrecto.'; return; }
+  if(r.ok&&r.j.ok){
+    $('c_out').innerHTML='✅ Código creado:\n\n<b style="color:#39ff6a;font-size:15px">'+r.j.code+'</b>\n\nproducto: '+r.j.product+' · usos: '+r.j.uses+' · '+(r.j.days?('días: '+r.j.days):'permanente');
+  } else $('c_out').textContent=JSON.stringify(r.j,null,2);
+}
+function renderPcs(pcs){
+  if(!pcs||!pcs.length) return '(nadie lo canjeó todavía)';
+  let h='<table><tr><th>PC (hwid)</th><th>estado</th><th>vence</th></tr>';
+  for(const p of pcs){ const d=p.expiresAt?new Date(p.expiresAt).toLocaleDateString():'-';
+    h+='<tr><td>'+p.hwid.slice(0,22)+'</td><td><span class="pill '+p.state+'">'+p.state+'</span></td><td>'+(p.expiresAt&&p.expiresAt.startsWith('2099')?'nunca':d)+'</td></tr>'; }
+  return h+'</table>';
+}
+async function status(){
+  if(!need('s_out'))return;
+  $('s_out').textContent='...';
+  const r=await call({op:'status',admin:sec(),product:prod(),code:$('s_code').value});
+  if(r.status===401){ $('s_out').textContent='❌ Secreto incorrecto.'; return; }
+  if(r.ok){ $('s_out').innerHTML='Código <code>'+r.j.code+'</code> · usados '+(r.j.used??0)+'/'+(r.j.uses===0?'∞':r.j.uses)+'\n'+renderPcs(r.j.pcs); }
+  else $('s_out').textContent=JSON.stringify(r.j,null,2);
+}
+async function listAll(){
+  if(!need('s_out'))return;
+  $('s_out').textContent='...';
+  const r=await call({op:'list',admin:sec(),product:prod()});
+  if(r.status===401){ $('s_out').textContent='❌ Secreto incorrecto.'; return; }
+  if(r.ok){ $('s_out').innerHTML='Total PCs en '+r.j.product+': '+r.j.count+'\n'+renderPcs(r.j.trials); }
+  else $('s_out').textContent=JSON.stringify(r.j,null,2);
+}
+async function revoke(){
+  if(!need('r_out'))return;
+  const code=$('r_code').value.trim(), hwid=$('r_hwid').value.trim();
+  if(!code&&!hwid){ $('r_out').textContent='Poné un código o un HWID.'; return; }
+  if(!confirm('¿Seguro que querés dar de baja '+(hwid||code)+'?')) return;
+  $('r_out').textContent='...';
+  const r=await call({op:'revoke',admin:sec(),product:prod(),code,hwid});
+  if(r.status===401){ $('r_out').textContent='❌ Secreto incorrecto.'; return; }
+  if(r.ok&&r.j.ok){ $('r_out').textContent='✅ Dadas de baja: '+r.j.revoked+' PC(s).'; }
+  else $('r_out').textContent=JSON.stringify(r.j,null,2);
+}
+</script>
+</body>
+</html>
