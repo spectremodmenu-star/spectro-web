@@ -143,6 +143,35 @@ module.exports = async (req, res) => {
       return;
     }
 
+    // --- Listar las PCs con prueba/registro (admin) -------------------------
+    // Para ubicar la PC de un amigo que ya abrio (y su HWID) sin pedirle nada.
+    if (op === 'list') {
+      const given = crypto.createHash('sha256').update(String(body.admin || '')).digest('hex');
+      if (given !== ADMIN_HASH) { res.status(401).json({ error: 'admin' }); return; }
+      let cursor = '0', keys = [], guard = 0;
+      do {
+        const r = await kv(['SCAN', cursor, 'MATCH', `trial:${product}:*`, 'COUNT', 500]);
+        cursor = Array.isArray(r) ? String(r[0]) : '0';
+        if (Array.isArray(r) && Array.isArray(r[1])) keys = keys.concat(r[1]);
+        guard++;
+      } while (cursor !== '0' && guard < 30);
+      const out = [];
+      for (const k of keys) {
+        const rec = parse(await kv(['GET', k]));
+        if (!rec) continue;
+        out.push({
+          hwid: k.replace(`trial:${product}:`, ''),
+          source: rec.source || 'trial',
+          state: rec.expiresAt > now ? 'active' : 'expired',
+          issuedAt: rec.issuedAt ? new Date(rec.issuedAt).toISOString() : null,
+          expiresAt: rec.expiresAt ? new Date(rec.expiresAt).toISOString() : null,
+        });
+      }
+      out.sort((a, b) => String(b.issuedAt).localeCompare(String(a.issuedAt)));
+      res.status(200).json({ product, count: out.length, trials: out });
+      return;
+    }
+
     // --- Dar de baja: cortar el acceso (admin) ------------------------------
     if (op === 'revoke') {
       const given = crypto.createHash('sha256').update(String(body.admin || '')).digest('hex');
