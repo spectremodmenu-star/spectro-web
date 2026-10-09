@@ -9,6 +9,9 @@
 // en la respuesta. Un cracker podria parchear el exe para saltear esto, pero eso ya
 // es "crackear" (mismo caso que la licencia), no el abuso casual de sacar 10 pruebas.
 //
+//   GET  /api/trial?hwid=...&product=spectro  -> CONSULTA (no crea nada)
+//   POST /api/trial  {hwid, product}          -> EMITE la prueba (crea si no existia)
+//
 // Env vars: KV_REST_API_URL + KV_REST_API_TOKEN (las setea la integracion KV de Vercel).
 
 const TRIAL_DAYS = 7;
@@ -28,36 +31,46 @@ async function kv(cmd) {
   return j.result;
 }
 
+function recToJson(rec, now) {
+  return {
+    status: rec.expiresAt > now ? 'active' : 'expired',
+    issuedAt: new Date(rec.issuedAt).toISOString(),
+    expiresAt: new Date(rec.expiresAt).toISOString(),
+    isNew: false,
+  };
+}
+
 module.exports = async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   if (req.method === 'OPTIONS') { res.status(204).end(); return; }
-  if (req.method !== 'POST') { res.status(405).json({ error: 'method' }); return; }
 
+  const isIssue = req.method === 'POST';     // POST emite, GET solo consulta
+  if (!isIssue && req.method !== 'GET') { res.status(405).json({ error: 'method' }); return; }
+
+  // Datos: del body (POST) o del query (GET).
   let body = req.body;
   if (typeof body === 'string') { try { body = JSON.parse(body); } catch { body = {}; } }
   body = body || {};
-  const hwid = String(body.hwid || '').trim();
-  const product = String(body.product || 'spectro').trim().toLowerCase();
+  const q = req.query || {};
+  const hwid = String(body.hwid || q.hwid || '').trim();
+  const product = String(body.product || q.product || 'spectro').trim().toLowerCase();
   if (hwid.length < 3) { res.status(400).json({ error: 'hwid' }); return; }
 
   const key = `trial:${product}:${hwid}`;
   const now = Date.now();
 
   try {
-    // ¿Esta PC ya pidio una prueba alguna vez?
     const existing = await kv(['GET', key]);
     if (existing) {
       const rec = typeof existing === 'string' ? JSON.parse(existing) : existing;
-      res.status(200).json({
-        status: rec.expiresAt > now ? 'active' : 'expired',
-        issuedAt: new Date(rec.issuedAt).toISOString(),
-        expiresAt: new Date(rec.expiresAt).toISOString(),
-        isNew: false,
-      });
+      res.status(200).json(recToJson(rec, now));
       return;
     }
-    // Primera vez: emitimos la prueba y la dejamos registrada PARA SIEMPRE.
+    // No hay registro para esta PC.
+    if (!isIssue) { res.status(200).json({ status: 'none' }); return; }  // consulta: nunca crea
+
+    // Emitir: 7 dias y queda registrado PARA SIEMPRE (la PC no puede re-pedir).
     const expiresAt = now + TRIAL_DAYS * 24 * 60 * 60 * 1000;
     await kv(['SET', key, JSON.stringify({ issuedAt: now, expiresAt })]);
     res.status(200).json({
