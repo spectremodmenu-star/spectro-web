@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Spectro — ESP para FiveM RP</title>
-<meta name="description" content="Spectro: ESP fluido, aim por driver y marcado de amigos para FiveM RP. Licencia de 1 año por USD 24,99.">
+<title>Spectro — cheats para FiveM y Counter-Strike</title>
+<meta name="description" content="Spectro (ESP + aim para FiveM RP) y CsTalent (ESP + triggerbot para Counter-Strike 2). Externos, livianos. Probalos gratis 7 días; desde USD 24,99.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=4">
+<link rel="stylesheet" href="style.css?v=5">
 </head>
 <body>
 
@@ -21,6 +21,13 @@
       <circle cx="25.5" cy="30" r="3.6" fill="#0a0c10"/>
       <circle cx="38.5" cy="30" r="3.6" fill="#0a0c10"/>
     </symbol>
+    <symbol id="reticle" viewBox="0 0 64 64">
+      <g fill="none" stroke="#39FF6A" stroke-width="5" stroke-linecap="round">
+        <circle cx="32" cy="32" r="19"/>
+        <path d="M32 3 V15 M32 49 V61 M3 32 H15 M49 32 H61"/>
+      </g>
+      <circle cx="32" cy="32" r="4.5" fill="#39FF6A"/>
+    </symbol>
   </defs>
 </svg>
 
@@ -30,8 +37,8 @@
     <span>Spectro</span>
   </a>
   <nav class="nav">
-    <a href="#que-hace">Qué hace</a>
-    <a href="#como">Cómo funciona</a>
+    <a href="#fivem">FiveM</a>
+    <a href="#counter">Counter-Strike</a>
     <a href="#precio">Precio</a>
     <a href="#faq">FAQ</a>
   </nav>
@@ -40,10 +47,10 @@
 
 <main>
 
-  <!-- ===== HERO ===== -->
-  <section class="hero">
+  <!-- ===== HERO (Spectro · FiveM) ===== -->
+  <section id="fivem" class="hero">
     <div class="hero-copy">
-      <span class="eyebrow">Para FiveM RP</span>
+      <span class="eyebrow">Spectro · para FiveM RP</span>
       <h1>Ves a todos.<br><span class="accent">Incluso a través de las paredes.</span></h1>
       <p class="lead">ESP fluido, aim por driver y marcado de amigos. Una ventanita liviana, siempre al frente, que no toca los archivos del juego ni del servidor.</p>
       <div class="price-pill"><strong>Desde USD 24,99</strong><span>o probalo gratis 7 días</span></div>
@@ -248,6 +255,198 @@
       <details>
         <summary>¿Qué pasa cuando vence el año?</summary>
         <p>Renovás con una clave nueva, más barata que la compra inicial. Mientras tengas licencia vigente, Spectro valida solo al abrir.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- ============ PRODUCTO 2 · COUNTER-STRIKE (CsTalent) ============ -->
+  <section id="counter" class="product-divider">
+    <div class="pd-inner">
+      <svg class="pd-mark" viewBox="0 0 64 64" aria-hidden="true"><use href="#reticle"/></svg>
+      <span class="eyebrow">Otro juego, mismo estándar</span>
+      <h2>CsTalent · para Counter-Strike 2</h2>
+      <p>ESP + triggerbot, 100% externo. Probalo gratis 7 días.</p>
+    </div>
+  </section>
+
+  <!-- ===== CS HERO ===== -->
+  <section class="hero">
+    <div class="hero-copy">
+      <span class="eyebrow">Para Counter-Strike 2</span>
+      <h1>Los ves a todos.<br><span class="accent">El tiro, perfecto.</span></h1>
+      <p class="lead">ESP + triggerbot <strong>externo</strong>: solo lee la memoria del juego. No inyecta DLL, no escribe en el proceso, no usa driver. El click va como un click normal.</p>
+      <div class="price-pill"><strong>Probalo gratis</strong><span>7 días, sin tarjeta</span></div>
+      <div class="cta-row">
+        <a class="btn" href="download/CsTalent.exe">Descargar y probar gratis</a>
+        <a class="btn btn-ghost" href="#cs-que-hace">Qué hace</a>
+      </div>
+      <p class="trust">100% externo: solo lee memoria, no inyecta. La compra online llega muy pronto.</p>
+    </div>
+
+    <div class="hero-visual">
+      <div class="glow"></div>
+      <svg class="esp-mockup" viewBox="0 0 720 500" role="img" aria-label="Mockup del ESP de CsTalent">
+        <defs>
+          <linearGradient id="sky2" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#141b29"/>
+            <stop offset="1" stop-color="#090c11"/>
+          </linearGradient>
+        </defs>
+        <rect x="1" y="1" width="718" height="498" rx="18" fill="url(#sky2)" stroke="rgba(255,255,255,.08)"/>
+        <g fill="#0c121b">
+          <rect x="0" y="430" width="720" height="70"/>
+          <rect x="60" y="360" width="120" height="70"/>
+          <rect x="540" y="340" width="150" height="90"/>
+        </g>
+        <rect x="1" y="470" width="718" height="29" fill="rgba(0,0,0,.35)"/>
+
+        <!-- Enemigo A (cerca, en la mira = triggerbot) -->
+        <line class="aimline" x1="360" y1="250" x2="300" y2="300"/>
+        <g class="fig">
+          <rect x="292" y="378" width="8" height="40" rx="3"/><rect x="306" y="378" width="8" height="40" rx="3"/>
+          <rect x="285" y="320" width="30" height="64" rx="10"/>
+          <circle cx="300" cy="308" r="13"/>
+        </g>
+        <g class="esp">
+          <path d="M278 292 h16 M278 292 v16 M326 292 h-16 M326 292 v16 M278 424 h16 M278 424 v-16 M326 424 h-16 M326 424 v-16"/>
+        </g>
+        <rect x="268" y="292" width="6" height="132" rx="3" fill="rgba(0,0,0,.55)"/>
+        <rect x="268" y="292" width="6" height="132" rx="3" class="hp-full"/>
+        <g class="tag"><rect x="256" y="276" width="92" height="19" rx="5"/><text x="302" y="289">enemy · 14 m</text></g>
+
+        <!-- Enemigo B (lejos, vida media) -->
+        <g class="fig">
+          <rect x="556" y="336" width="5" height="24" rx="2"/><rect x="566" y="336" width="5" height="24" rx="2"/>
+          <rect x="552" y="300" width="24" height="40" rx="8"/>
+          <circle cx="564" cy="292" r="9"/>
+        </g>
+        <g class="esp">
+          <path d="M544 280 h14 M544 280 v14 M586 280 h-14 M586 280 v14 M544 364 h14 M544 364 v-14 M586 364 h-14 M586 364 v-14"/>
+        </g>
+        <rect x="535" y="280" width="6" height="84" rx="3" fill="rgba(0,0,0,.55)"/>
+        <rect x="535" y="320" width="6" height="44" rx="3" class="hp-full"/>
+        <rect x="535" y="280" width="6" height="40" rx="3" class="hp-low"/>
+        <g class="tag"><rect x="520" y="264" width="92" height="19" rx="5"/><text x="566" y="277">enemy · 39 m</text></g>
+
+        <!-- crosshair (triggerbot) -->
+        <g class="crosshair">
+          <line x1="344" y1="250" x2="356" y2="250"/><line x1="364" y1="250" x2="376" y2="250"/>
+          <line x1="360" y1="234" x2="360" y2="246"/><line x1="360" y1="254" x2="360" y2="266"/>
+          <circle cx="360" cy="250" r="1.6"/>
+        </g>
+        <text class="hud" x="28" y="36">CSTALENT · ESP</text>
+        <text class="hud" x="692" y="36" text-anchor="end">trigger ON</text>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ===== CS QUÉ HACE ===== -->
+  <section id="cs-que-hace" class="section">
+    <div class="section-head">
+      <h2>Qué hace</h2>
+      <p>Dos funciones, hechas para andar siempre — sin relleno.</p>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <div class="ic">
+          <svg viewBox="0 0 24 24"><path d="M1.5 12S5 5 12 5s10.5 7 10.5 7-3.5 7-10.5 7S1.5 12 1.5 12Z"/><circle cx="12" cy="12" r="3.2"/></svg>
+        </div>
+        <h3>ESP / Wallhack</h3>
+        <p>Caja, nombre, vida y distancia sobre cada enemigo. Los ves a través de las paredes, de punta a punta del mapa.</p>
+      </article>
+      <article class="card">
+        <div class="ic">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="7.5"/><line x1="12" y1="1.5" x2="12" y2="5.5"/><line x1="12" y1="18.5" x2="12" y2="22.5"/><line x1="1.5" y1="12" x2="5.5" y2="12"/><line x1="18.5" y1="12" x2="22.5" y2="12"/><circle cx="12" cy="12" r="1.5" class="fill"/></svg>
+        </div>
+        <h3>Triggerbot</h3>
+        <p>Dispara solo cuando un enemigo queda bajo tu mira. Lo prendés y apagás con una tecla; ajustás modo, cooldown y alcance.</p>
+      </article>
+      <article class="card">
+        <div class="ic">
+          <svg viewBox="0 0 24 24"><path d="M12 2.5l7.5 3v5.5c0 4.6-3.2 8-7.5 9-4.3-1-7.5-4.4-7.5-9V5.5z"/><path d="M8.6 12l2.3 2.3 4.5-4.6"/></svg>
+        </div>
+        <h3>Externo y seguro</h3>
+        <p>No inyecta DLL ni escribe en el juego ni usa driver kernel. Solo lee memoria (<code>ReadProcessMemory</code>); el tiro va por un click normal.</p>
+      </article>
+      <article class="card">
+        <div class="ic">
+          <svg viewBox="0 0 24 24"><rect x="2.5" y="5.5" width="19" height="13" rx="2.5"/><path d="M6 10h.01 M10 10h.01 M14 10h.01 M18 10h.01 M7 14h10"/></svg>
+        </div>
+        <h3>Teclas y menú</h3>
+        <p>Toggles reasignables (F5 ESP, F6 trigger, F9 menú). Todo se ajusta y se guarda. Una ventanita liviana, siempre al frente.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== CS CÓMO FUNCIONA ===== -->
+  <section class="section">
+    <div class="section-head">
+      <h2>Cómo funciona</h2>
+      <p>Del download al juego en dos minutos. Probalo gratis 7 días antes de comprar.</p>
+    </div>
+    <ol class="steps">
+      <li><span class="num">1</span><h3>Bajás CsTalent</h3><p>Un solo <code>.exe</code> portable. Abrís CS2 en <strong>Pantalla completa en ventana</strong>.</p></li>
+      <li><span class="num">2</span><h3>Probás gratis</h3><p>Al abrirlo, tocás <b>"Probar gratis 7 días"</b> — una prueba por PC. O canjeás tu código.</p></li>
+      <li><span class="num">3</span><h3>Jugás</h3><p><code>F5</code>/<code>F6</code> prenden ESP y trigger, <code>F9</code> abre el menú.</p></li>
+      <li><span class="num">4</span><h3>Comprás cuando quieras</h3><p>La licencia queda atada a tu PC: 1 licencia = 1 computadora.</p></li>
+    </ol>
+  </section>
+
+  <!-- ===== CS PRECIO ===== -->
+  <section class="section">
+    <div class="section-head">
+      <h2>Precio</h2>
+      <p>La compra online de CsTalent llega muy pronto. Por ahora, probalo gratis 7 días.</p>
+    </div>
+    <div class="plans">
+      <div class="plan">
+        <span class="plan-name">1 año</span>
+        <div class="plan-price">USD 24,99 <span>/año</span></div>
+        <p class="plan-note">Renovás más barato cuando vence.</p>
+        <a class="btn btn-ghost full" href="download/CsTalent.exe">Descargar y probar gratis</a>
+        <ul class="plan-feats">
+          <li>ESP + Triggerbot</li>
+          <li>Actualizaciones automáticas</li>
+          <li>1 PC por licencia</li>
+          <li>Soporte por email</li>
+        </ul>
+      </div>
+      <div class="plan plan-featured">
+        <span class="badge">Pronto</span>
+        <span class="plan-name">Para siempre</span>
+        <div class="plan-price">USD 34,99 <span>pago único</span></div>
+        <p class="plan-note">Pagás una vez y es tuya de por vida.</p>
+        <a class="btn full" href="download/CsTalent.exe">Descargar y probar gratis</a>
+        <ul class="plan-feats">
+          <li>ESP + Triggerbot</li>
+          <li>Actualizaciones <strong>de por vida</strong></li>
+          <li>1 PC por licencia</li>
+          <li>Soporte por email</li>
+          <li>Sin renovaciones, nunca</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CS FAQ ===== -->
+  <section id="cs-faq" class="section">
+    <div class="section-head"><h2>Preguntas frecuentes · Counter-Strike</h2></div>
+    <div class="faq">
+      <details>
+        <summary>¿Cómo pruebo gratis?</summary>
+        <p>Bajás CsTalent y al abrirlo tocás "Probar gratis 7 días". Es una prueba por computadora; cuando se termina, comprás una licencia (o canjeás un código) para seguir.</p>
+      </details>
+      <details>
+        <summary>¿Es seguro? ¿Inyecta algo?</summary>
+        <p>No. CsTalent es 100% externo: solo lee la memoria del juego, no inyecta DLL ni escribe en el proceso ni usa driver kernel. El disparo del triggerbot va como un click normal.</p>
+      </details>
+      <details>
+        <summary>¿Qué necesito para que se vea el ESP?</summary>
+        <p>CS2 en <strong>"Pantalla completa en ventana" (Fullscreen Windowed)</strong>. En pantalla completa exclusiva el overlay no se dibuja.</p>
+      </details>
+      <details>
+        <summary>¿Y cuando CS2 se actualiza?</summary>
+        <p>Si un parche mueve las referencias de memoria, CsTalent lo detecta y te avisa en vez de dibujar mal.</p>
       </details>
     </div>
   </section>
