@@ -1,6 +1,6 @@
 ﻿{
-    "version":  "1.3.0",
+    "version":  "1.3.1",
     "url":  "https://spectrofivem.vercel.app/download/Cheat.App.exe",
-    "sha256":  "CECD51F8FDD67EB1BADC08486F903843D58BD92A938A2D1AB12B2967208735E0",
-    "notas":  "Auto-actualizacion de offsets desde la web + offsets embebidos"
+    "sha256":  "D76D693E3BA5768E9173F1A472799C8B2852B76F72342BF1091505C8C49FE329",
+    "notas":  "Auto-actualizacion de offsets (byte-exacto) + offsets embebidos"
 }
