@@ -1,0 +1,17 @@
+{
+  "ProcessName": "FiveM*GTAProcess*",
+  "GlobalPtrOffset": 34010256,
+  "CamPtrOffset": 30982360,
+  "CWorldOffset": 16,
+  "PedListOffset": 8,
+  "CountOffset": 8,
+  "ListOffset": 16,
+  "EntryStride": 8,
+  "PedPosOffset": 80,
+  "CamPosOffset": 144,
+  "CamFwdOffset": 96,
+  "CameraPedOffset": 48,
+  "FovVDeg": 60,
+  "PitchSign": -1,
+  "EspMaxDistM": 120
+}

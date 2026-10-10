@@ -1,0 +1,65 @@
+﻿{
+    "SchemaVersion":  1,
+    "ProcessName":  "cs2.exe",
+    "ModuleName":  "client.dll",
+    "Globals":  {
+                    "GameEntitySystem":  40965528,
+                    "LocalPlayerController":  39008424,
+                    "LocalPlayerPawn":  39175112,
+                    "ViewMatrix":  39197904,
+                    "ViewMatrixLayout":  1,
+                    "ViewAngles":  39290856,
+                    "HighestEntityIndex":  8480
+                },
+    "EntityList":  {
+                       "ListOffset":  16,
+                       "ChunkArrayOffset":  16,
+                       "ChunkShift":  9,
+                       "ChunkSize":  512,
+                       "Stride":  112,
+                       "StrideCandidates":  [
+                                                112,
+                                                120
+                                            ]
+                   },
+    "Controller":  {
+                       "PawnHandle":  2348,
+                       "PlayerName":  1788,
+                       "NameLength":  128,
+                       "IsLocalFlag":  1936
+                   },
+    "Pawn":  {
+                 "SceneNode":  816,
+                 "Health":  844,
+                 "TeamNum":  999,
+                 "AbsOrigin":  200,
+                 "OldOrigin":  5284,
+                 "IDEntIndex":  14044,
+                 "SpottedState":  7816,
+                 "SpottedFlag":  8,
+                 "OwnerEntity":  1312,
+                 "EntityIdentity":  16,
+                 "DesignerName":  32,
+                 "BoneArray":  448,
+                 "BoneStride":  32,
+                 "BoneCount":  128
+             },
+    "Bones":  {
+                  "Head":  7,
+                  "Neck":  6,
+                  "Chest":  4,
+                  "Pelvis":  1,
+                  "LShoulder":  9,
+                  "LElbow":  10,
+                  "LHand":  11,
+                  "RShoulder":  13,
+                  "RElbow":  14,
+                  "RHand":  15,
+                  "LHip":  17,
+                  "LKnee":  18,
+                  "LFoot":  19,
+                  "RHip":  20,
+                  "RKnee":  21,
+                  "RFoot":  22
+              }
+}
