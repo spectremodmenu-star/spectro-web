@@ -69,9 +69,22 @@ module.exports = async (req, res) => {
     const offs = await kv(['GET', `offsets:${product}`]);
     if (!offs) { res.status(404).json({ error: 'no_offsets' }); return; }
 
+    // MARCA DE AGUA: inyecto la huella de la PC (base64, con nombre disimulado) en el
+    // offsets que entrego. Si alguien FILTRA su offsets.json, ese campo revela de que
+    // licencia salio -> se lo da de baja. El exe ignora campos desconocidos.
+    let out;
+    try {
+      const str = (typeof offs === 'string' ? offs : JSON.stringify(offs)).replace(/^﻿/, '');
+      const o = JSON.parse(str);
+      o._sig = Buffer.from(`${hwid}|${Date.now()}`).toString('base64');
+      out = JSON.stringify(o);
+    } catch {
+      out = typeof offs === 'string' ? offs : JSON.stringify(offs);
+    }
+
     res.setHeader('Content-Type', 'application/json; charset=utf-8');
     res.setHeader('Cache-Control', 'no-store');
-    res.status(200).send(typeof offs === 'string' ? offs : JSON.stringify(offs));
+    res.status(200).send(out);
   } catch (e) {
     res.status(500).json({ error: 'server' });
   }
