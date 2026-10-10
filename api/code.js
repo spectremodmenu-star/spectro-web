@@ -191,6 +191,30 @@ module.exports = async (req, res) => {
       return;
     }
 
+    // --- Guardar los offsets del producto en KV (admin) --------------------
+    // Son el dato perecedero que el endpoint gateado /api/offsets sirve solo a
+    // PCs con licencia. Actualizar aca (desde el panel) = a todos los clientes
+    // validos les llega el offsets nuevo al reabrir, sin push ni reinstalar.
+    if (op === 'setoffsets') {
+      const given = crypto.createHash('sha256').update(String(body.admin || '')).digest('hex');
+      if (given !== ADMIN_HASH) { res.status(401).json({ error: 'admin' }); return; }
+      const offs = body.offsets;
+      const s = typeof offs === 'string' ? offs : JSON.stringify(offs);
+      if (!s || s.length < 10) { res.status(400).json({ error: 'offsets' }); return; }
+      try { JSON.parse(s.replace(/^﻿/, '')); } catch { res.status(400).json({ error: 'not_json' }); return; }
+      await kv(['SET', `offsets:${product}`, s]);
+      res.status(200).json({ ok: true, product, bytes: s.length });
+      return;
+    }
+    if (op === 'getoffsets') {
+      const given = crypto.createHash('sha256').update(String(body.admin || '')).digest('hex');
+      if (given !== ADMIN_HASH) { res.status(401).json({ error: 'admin' }); return; }
+      const s = await kv(['GET', `offsets:${product}`]);
+      const len = s ? (typeof s === 'string' ? s.length : JSON.stringify(s).length) : 0;
+      res.status(200).json({ product, has: !!s, bytes: len });
+      return;
+    }
+
     res.status(400).json({ error: 'op' });
   } catch (e) {
     res.status(500).json({ error: 'server' });
