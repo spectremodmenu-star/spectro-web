@@ -124,6 +124,14 @@
     </div>
     <div id="o_out" class="out"></div>
   </div>
+
+  <div class="card">
+    <h2>Rastrear filtración</h2>
+    <p class="hint" style="margin-bottom:8px">Si aparece un <code>offsets.json</code> filtrado, pegá el valor de su campo <code>_sig</code> para ver de qué PC salió (después la das de baja arriba).</p>
+    <input id="w_sig" placeholder="valor de _sig" autocomplete="off">
+    <button onclick="decodeSig()">Ver de qué PC salió</button>
+    <div id="w_out" class="out"></div>
+  </div>
 </div>
 
 <script>
@@ -211,6 +219,14 @@ async function offStatus(){
   if(r.status===401){ $('o_out').textContent='❌ Secreto incorrecto.'; return; }
   if(r.ok){ $('o_out').textContent = r.j.has ? ('Hay offsets de '+r.j.product+': '+r.j.bytes+' bytes cargados.') : ('No hay offsets cargados para '+r.j.product+'.'); }
   else $('o_out').textContent=JSON.stringify(r.j,null,2);
+}
+function decodeSig(){
+  const v=$('w_sig').value.trim();
+  if(!v){ $('w_out').textContent='Pegá el valor de _sig.'; return; }
+  try{
+    const d=atob(v); const parts=d.split('|'); const hwid=parts[0]; const ts=parts[1];
+    $('w_out').innerHTML='PC (hwid): <b style="color:#39ff6a">'+hwid+'</b>'+(ts?('\nservido: '+new Date(+ts).toLocaleString()):'')+'\n\nBuscalo con "Listar"/"Ver" y dale de baja.';
+  }catch{ $('w_out').textContent='No pude decodificar ese _sig.'; }
 }
 </script>
 </body>
