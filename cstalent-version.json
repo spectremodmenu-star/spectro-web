@@ -1,6 +1,6 @@
-﻿{
-    "version":  "1.0.0",
-    "url":  "https://spectrofivem.vercel.app/download/CsTalent.exe",
-    "sha256":  "E677F96F84BB2CEFEDE575FF676749B17EEC6BDC2CDB79FC84E2D546E4457820",
-    "notas":  "Auto-updater activado"
+{
+    "version": "1.0.1",
+    "url": "https://spectrofivem.vercel.app/download/CsTalent.exe",
+    "sha256": "3D8745712B8F6936FDEE301B7DE68FFDFB5B3301A20D5C79B9B66AC590A5D96D",
+    "notas": "Licencias atadas a su producto (una clave de CsTalent no abre Spectro ni al reves)."
 }
