@@ -1,6 +1,6 @@
-﻿{
-    "version":  "1.3.2",
-    "url":  "https://spectrofivem.vercel.app/download/Cheat.App.exe",
-    "sha256":  "FDBAFA78199A04A58373474279A857407DBC93B42954FFEE1308B22290DC7B71",
-    "notas":  "Offsets gateados por licencia (anti-clon) + offsets embebidos"
+{
+    "version": "1.3.3",
+    "url": "https://spectrofivem.vercel.app/download/Cheat.App.exe",
+    "sha256": "176430C347BDD7F7596A7213D8571EEF4FE7E4CA13940409CC113F51411694FD",
+    "notas": "Licencias atadas a su producto (una clave de Spectro no abre CsTalent ni al reves)."
 }
