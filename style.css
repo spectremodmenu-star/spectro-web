@@ -117,8 +117,8 @@ main,.site-header{max-width:var(--maxw);margin-inline:auto;padding-inline:24px}
 .steps code{background:var(--accent-weak);color:var(--accent);padding:1px 6px;border-radius:5px;font-size:.9em}
 
 /* planes */
-.plans{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;align-items:stretch;
-  max-width:720px;margin-inline:auto}
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:stretch;
+  max-width:1040px;margin-inline:auto}
 .plan{position:relative;display:flex;flex-direction:column;
   background:linear-gradient(180deg,var(--card-2),var(--card));
   border:1px solid var(--line);border-radius:18px;padding:28px}
@@ -179,5 +179,8 @@ footer a{color:var(--accent)}
   .hero{grid-template-columns:1fr;gap:30px;padding-top:40px}
   .hero-visual{order:-1}
   .nav{display:none}
+  .plans{grid-template-columns:repeat(2,1fr);max-width:620px}
+}
+@media (max-width:560px){
   .plans{grid-template-columns:1fr;max-width:420px}
 }
