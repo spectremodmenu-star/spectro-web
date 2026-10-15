@@ -257,6 +257,29 @@ footer a.lnk{color:var(--accent)}
 .legal{max-width:var(--maxw);margin:28px auto 0;padding-top:22px;border-top:1px solid var(--line);
   color:var(--muted-2);font-size:12.5px;line-height:1.6}
 
+/* ---------- aviso de ventas finales (debajo de los planes) ---------- */
+.refund-note{max-width:640px;margin:14px auto 0;text-align:center;color:var(--muted-2);font-size:13px}
+.refund-note a{color:var(--muted);text-decoration:underline;text-underline-offset:3px}
+.refund-note a:hover{color:var(--accent)}
+
+/* ---------- páginas de texto (legal) ---------- */
+.prose{max-width:760px;margin-inline:auto;padding:64px 24px 24px}
+.prose h1{font-size:clamp(32px,5vw,46px);line-height:1.1;margin:0 0 10px}
+.prose .meta{color:var(--muted-2);font-size:14px;margin:0 0 28px}
+.prose .toc{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 12px}
+.prose .toc a{padding:7px 15px;border-radius:999px;font-size:14px;color:var(--muted);
+  background:var(--surface);border:1px solid var(--line);transition:.15s}
+.prose .toc a:hover{color:var(--accent);border-color:var(--accent-line)}
+.prose h2{font-size:26px;margin:52px 0 12px;scroll-margin-top:90px}
+.prose h3{font-size:17px;margin:26px 0 6px}
+.prose p,.prose li{color:#c9d2db;font-size:16px}
+.prose p{margin:0 0 14px}
+.prose ul{padding-left:22px;margin:8px 0 16px;display:grid;gap:7px}
+.prose strong{color:var(--fg);font-weight:600}
+.prose a{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
+.prose .callout{margin:18px 0;padding:16px 20px;border-radius:14px;background:var(--accent-weak);
+  border:1px solid var(--accent-line);color:var(--fg);font-size:15.5px}
+
 /* ---------- animación de entrada (solo si hay JS) ---------- */
 .js .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
 .js .reveal.in{opacity:1;transform:none}
