@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CsTalent — ESP y triggerbot para Counter-Strike 2</title>
+<meta name="description" content="CsTalent: ESP + triggerbot 100% externo para Counter-Strike 2. Un solo .exe portable, se actualiza solo. Probalo gratis 7 días; desde USD 6,99/mes.">
+<meta name="theme-color" content="#07090d">
+<link rel="canonical" href="https://spectrofivem.vercel.app/cstalent/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="CsTalent — ESP y triggerbot para Counter-Strike 2">
+<meta property="og:description" content="ESP + triggerbot 100% externo para CS2. Probalo gratis 7 días; desde USD 6,99/mes.">
+<meta property="og:url" content="https://spectrofivem.vercel.app/cstalent/">
+<link rel="icon" type="image/svg+xml" href="/cstalent/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css?v=6">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body class="theme-cs">
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="ghost" viewBox="0 0 64 64">
+      <path d="M12 52 L12 31 C12 20 20.95 11 32 11 C43.05 11 52 20 52 31 L52 52 L47 47 L42 52 L37 47 L32 52 L27 47 L22 52 L17 47 Z"/>
+      <circle cx="25.5" cy="30" r="3.6" fill="#0a0c10"/>
+      <circle cx="38.5" cy="30" r="3.6" fill="#0a0c10"/>
+    </symbol>
+    <symbol id="reticle" viewBox="0 0 64 64">
+      <g fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round">
+        <circle cx="32" cy="32" r="19"/>
+        <path d="M32 3 V15 M32 49 V61 M3 32 H15 M49 32 H61"/>
+      </g>
+      <circle cx="32" cy="32" r="4.5" fill="currentColor"/>
+    </symbol>
+  </defs>
+</svg>
+
+<header class="site-header">
+  <div class="hdr-in">
+    <a class="brand" href="/cstalent/">
+      <svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true"><use href="#reticle"/></svg>
+      <span>CsTalent</span>
+    </a>
+    <div class="switch" role="navigation" aria-label="Productos">
+      <a href="/">FiveM</a>
+      <a class="on" href="/cstalent/" aria-current="page"><span class="lg">Counter-Strike 2</span><span class="sm">CS2</span></a>
+    </div>
+    <nav class="nav" aria-label="Secciones">
+      <a href="#funciones">Funciones</a>
+      <a href="#como">Cómo funciona</a>
+      <a href="#planes">Planes</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a class="btn btn-sm" href="#planes">Comprar</a>
+  </div>
+</header>
+
+<main>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="hero-copy">
+      <span class="eyebrow">CsTalent · para Counter-Strike 2</span>
+      <h1>Los ves a todos.<br><span class="accent">Disparás en el momento justo.</span></h1>
+      <p class="lead">ESP + triggerbot <strong>100% externo</strong>: solo lee la memoria del juego. No inyecta DLL, no escribe en el proceso, no usa driver. El click va como un click normal.</p>
+      <div class="cta-row">
+        <a class="btn btn-lg" href="/download/CsTalent.exe?v=6">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0l-4.5-4.5M12 15l4.5-4.5M4 20h16"/></svg>
+          Descargar y probar gratis
+        </a>
+        <a class="btn btn-lg btn-ghost" href="#planes">Ver planes</a>
+      </div>
+      <ul class="checks">
+        <li>7 días gratis, sin tarjeta</li>
+        <li>Un solo .exe portable</li>
+        <li>Se actualiza solo</li>
+      </ul>
+    </div>
+
+    <div class="hero-visual">
+      <div class="glow"></div>
+      <div class="window">
+        <div class="win-bar"><i></i><i></i><i></i><b>CsTalent · ESP</b></div>
+        <svg class="esp-mockup" viewBox="0 170 720 330" role="img" aria-label="Ilustración del ESP de CsTalent: caja, vida y distancia sobre los enemigos, con el triggerbot activo">
+          <defs>
+            <linearGradient id="sky2" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#141b29"/>
+              <stop offset="1" stop-color="#090c11"/>
+            </linearGradient>
+          </defs>
+          <rect width="720" height="500" fill="url(#sky2)"/>
+          <g fill="#0c121b">
+            <rect x="0" y="430" width="720" height="70"/>
+            <rect x="60" y="360" width="120" height="70"/>
+            <rect x="540" y="340" width="150" height="90"/>
+          </g>
+          <rect y="470" width="720" height="30" fill="rgba(0,0,0,.35)"/>
+
+          <!-- enemigo cercano, bajo la mira (triggerbot) -->
+          <line class="aimline" x1="360" y1="250" x2="300" y2="300"/>
+          <g class="fig">
+            <rect x="292" y="378" width="8" height="40" rx="3"/><rect x="306" y="378" width="8" height="40" rx="3"/>
+            <rect x="285" y="320" width="30" height="64" rx="10"/>
+            <circle cx="300" cy="308" r="13"/>
+          </g>
+          <g class="esp">
+            <path d="M278 292 h16 M278 292 v16 M326 292 h-16 M326 292 v16 M278 424 h16 M278 424 v-16 M326 424 h-16 M326 424 v-16"/>
+          </g>
+          <rect x="268" y="292" width="6" height="132" rx="3" fill="rgba(0,0,0,.55)"/>
+          <rect x="268" y="292" width="6" height="132" rx="3" class="hp-full"/>
+          <g class="tag"><rect x="256" y="276" width="92" height="19" rx="5"/><text x="302" y="289">enemy · 14 m</text></g>
+
+          <!-- enemigo lejano -->
+          <g class="fig">
+            <rect x="556" y="336" width="5" height="24" rx="2"/><rect x="566" y="336" width="5" height="24" rx="2"/>
+            <rect x="552" y="300" width="24" height="40" rx="8"/>
+            <circle cx="564" cy="292" r="9"/>
+          </g>
+          <g class="esp">
+            <path d="M544 280 h14 M544 280 v14 M586 280 h-14 M586 280 v14 M544 364 h14 M544 364 v-14 M586 364 h-14 M586 364 v-14"/>
+          </g>
+          <rect x="535" y="280" width="6" height="84" rx="3" fill="rgba(0,0,0,.55)"/>
+          <rect x="535" y="320" width="6" height="44" rx="3" class="hp-full"/>
+          <rect x="535" y="280" width="6" height="40" rx="3" class="hp-low"/>
+          <g class="tag"><rect x="520" y="264" width="92" height="19" rx="5"/><text x="566" y="277">enemy · 39 m</text></g>
+
+          <g class="crosshair">
+            <line x1="344" y1="250" x2="356" y2="250"/><line x1="364" y1="250" x2="376" y2="250"/>
+            <line x1="360" y1="234" x2="360" y2="246"/><line x1="360" y1="254" x2="360" y2="266"/>
+            <circle cx="360" cy="250" r="1.6"/>
+          </g>
+          <text class="hud" x="28" y="200">CSTALENT · ESP</text>
+          <text class="hud" x="692" y="200" text-anchor="end">TRIGGER ON</text>
+        </svg>
+      </div>
+      <p class="caption">Ilustración del ESP y el triggerbot. Todo se ajusta desde el menú.</p>
+    </div>
+  </section>
+
+  <!-- ===== DATOS ===== -->
+  <div class="stats reveal">
+    <div class="stats-in">
+      <div class="stat"><b>7 <em>días</em></b><span>de prueba gratis, sin tarjeta</span></div>
+      <div class="stat"><b>1 <em>.exe</em></b><span>portable: no instala nada</span></div>
+      <div class="stat"><b>100% <em>externo</em></b><span>solo lee memoria, no inyecta</span></div>
+      <div class="stat"><b>1 <em>PC</em></b><span>por licencia, atada a tu equipo</span></div>
+    </div>
+  </div>
+
+  <!-- ===== FUNCIONES ===== -->
+  <section id="funciones" class="section">
+    <div class="section-head reveal">
+      <p class="kicker">Funciones</p>
+      <h2>Dos funciones, hechas para andar siempre</h2>
+      <p>Sin relleno: ESP y triggerbot, bien resueltos.</p>
+    </div>
+    <div class="grid">
+      <article class="card reveal">
+        <div class="ic">
+          <svg viewBox="0 0 24 24"><path d="M1.5 12S5 5 12 5s10.5 7 10.5 7-3.5 7-10.5 7S1.5 12 1.5 12Z"/><circle cx="12" cy="12" r="3.2"/></svg>
+        </div>
+        <h3>ESP / Wallhack</h3>
+        <p>Caja, nombre, vida y distancia sobre cada enemigo. Los ves a través de las paredes, de punta a punta del mapa.</p>
+      </article>
+      <article class="card reveal">
+        <div class="ic">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="7.5"/><line x1="12" y1="1.5" x2="12" y2="5.5"/><line x1="12" y1="18.5" x2="12" y2="22.5"/><line x1="1.5" y1="12" x2="5.5" y2="12"/><line x1="18.5" y1="12" x2="22.5" y2="12"/><circle cx="12" cy="12" r="1.5" class="fill"/></svg>
+        </div>
+        <h3>Triggerbot</h3>
+        <p>Dispara solo cuando un enemigo queda bajo tu mira. Lo prendés y apagás con una tecla; ajustás modo, cooldown y alcance.</p>
+      </article>
+      <article class="card reveal">
+        <div class="ic">
+          <svg viewBox="0 0 24 24"><path d="M12 2.5l7.5 3v5.5c0 4.6-3.2 8-7.5 9-4.3-1-7.5-4.4-7.5-9V5.5z"/><path d="M8.6 12l2.3 2.3 4.5-4.6"/></svg>
+        </div>
+        <h3>100% externo</h3>
+        <p>No inyecta DLL, no escribe en el juego ni usa driver kernel. Solo lee memoria (<code>ReadProcessMemory</code>); el disparo va por un click normal.</p>
+      </article>
+      <article class="card reveal">
+        <div class="ic">
+          <svg viewBox="0 0 24 24"><rect x="2.5" y="5.5" width="19" height="13" rx="2.5"/><path d="M6 10h.01 M10 10h.01 M14 10h.01 M18 10h.01 M7 14h10"/></svg>
+        </div>
+        <h3>Teclas y menú</h3>
+        <p>Toggles reasignables (<code>F5</code> ESP, <code>F6</code> trigger, <code>F9</code> menú). Todo se ajusta y se guarda. Una ventanita liviana, siempre al frente.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== CÓMO FUNCIONA ===== -->
+  <section id="como" class="section">
+    <div class="section-head reveal">
+      <p class="kicker">Cómo funciona</p>
+      <h2>Del download a la partida en dos minutos</h2>
+      <p>Probalo gratis 7 días antes de comprar nada.</p>
+    </div>
+    <ol class="steps">
+      <li class="reveal"><span class="num">1</span><h3>Bajás CsTalent</h3><p>Un solo <code>.exe</code> portable. Abrís CS2 en <strong>Pantalla completa en ventana</strong>.</p></li>
+      <li class="reveal"><span class="num">2</span><h3>Probás gratis</h3><p>Al abrirlo, tocás <b>"Probar gratis 7 días"</b>: una prueba por PC. O canjeás tu código.</p></li>
+      <li class="reveal"><span class="num">3</span><h3>Jugás</h3><p><code>F5</code>/<code>F6</code> prenden ESP y trigger, <code>F9</code> abre el menú.</p></li>
+      <li class="reveal"><span class="num">4</span><h3>Comprás cuando quieras</h3><p>La licencia queda atada a tu PC: 1 licencia = 1 computadora.</p></li>
+    </ol>
+  </section>
+
+  <!-- ===== PLANES ===== -->
+  <section id="planes" class="section">
+    <div class="section-head reveal">
+      <p class="kicker">Planes</p>
+      <h2>Elegí cuánto querés que dure</h2>
+      <p>Los tres planes traen todo. Cambia solo la duración.</p>
+    </div>
+    <div class="plans">
+      <div class="plan reveal">
+        <span class="plan-name">Mensual</span>
+        <div class="plan-price"><small>USD</small>6,99 <span>por mes</span></div>
+        <p class="plan-eq">&nbsp;</p>
+        <p class="plan-note">Ideal si lo vas a usar poco. Cancelás cuando quieras.</p>
+        <a class="btn btn-ghost full" href="https://spectrofivem.lemonsqueezy.com/checkout/buy/123992c1-9b82-4386-85ca-f12cc60719ad">Suscribirme</a>
+        <ul class="plan-feats">
+          <li>ESP + Triggerbot</li>
+          <li>Actualizaciones automáticas</li>
+          <li>1 PC por licencia</li>
+          <li>Cancelás cuando quieras</li>
+        </ul>
+      </div>
+      <div class="plan reveal">
+        <span class="plan-name">1 año</span>
+        <div class="plan-price"><small>USD</small>24,99 <span>por año</span></div>
+        <p class="plan-eq">≈ USD 2,08 por mes · ahorrás 70%</p>
+        <p class="plan-note">Renovás más barato cuando vence.</p>
+        <a class="btn btn-ghost full" href="https://spectrofivem.lemonsqueezy.com/checkout/buy/5bcfd609-b647-472e-95a4-c06ce8c2db1c">Comprar 1 año</a>
+        <ul class="plan-feats">
+          <li>ESP + Triggerbot</li>
+          <li>Actualizaciones automáticas</li>
+          <li>1 PC por licencia</li>
+          <li>Soporte por email</li>
+        </ul>
+      </div>
+      <div class="plan plan-featured reveal">
+        <span class="badge">Mejor valor</span>
+        <span class="plan-name">Para siempre</span>
+        <div class="plan-price"><small>USD</small>34,99 <span>pago único</span></div>
+        <p class="plan-eq">Sin renovaciones, nunca</p>
+        <p class="plan-note">Pagás una vez y es tuya de por vida.</p>
+        <a class="btn full" href="https://spectrofivem.lemonsqueezy.com/checkout/buy/85460720-7f01-4951-8e2c-427a87459f80">Comprar para siempre</a>
+        <ul class="plan-feats">
+          <li>ESP + Triggerbot</li>
+          <li>Actualizaciones <strong>de por vida</strong></li>
+          <li>1 PC por licencia</li>
+          <li>Soporte por email</li>
+        </ul>
+      </div>
+    </div>
+    <div class="pay-note">
+      <span><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V8a5 5 0 0 1 10 0v3"/></svg>Pago seguro con Lemon Squeezy</span>
+      <span><svg viewBox="0 0 24 24"><path d="M4 7h16v10H4z"/><path d="M4 7l8 6 8-6"/></svg>La clave te llega al instante por email</span>
+      <span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Impuestos calculados al pagar</span>
+    </div>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section id="faq" class="section">
+    <div class="section-head reveal">
+      <p class="kicker">FAQ</p>
+      <h2>Preguntas frecuentes</h2>
+    </div>
+    <div class="faq">
+      <details>
+        <summary>¿Cómo pruebo gratis?</summary>
+        <p>Bajás CsTalent y al abrirlo tocás <b>"Probar gratis 7 días"</b>. Es una prueba por computadora, sin tarjeta. Cuando se termina, comprás una licencia (o canjeás un código) para seguir.</p>
+      </details>
+      <details>
+        <summary>¿En cuántas PC puedo usar una licencia?</summary>
+        <p>En una. Se activa en la primera PC donde la pegás y queda atada. Si cambiás de PC o formateás, se libera la anterior y se activa en la nueva.</p>
+      </details>
+      <details>
+        <summary>¿Puedo pagarlo mes a mes?</summary>
+        <p>Sí. El plan <b>Mensual</b> es una suscripción de USD 6,99 por mes: ideal si lo vas a usar poco. Se renueva solo cada mes y la <b>cancelás cuando quieras</b> desde el link que te llega por email (seguís con acceso hasta fin del período pago). Si lo vas a usar seguido, el plan de 1 año o el de por siempre te salen más baratos a la larga.</p>
+      </details>
+      <details>
+        <summary>¿Qué necesito para que se vea el ESP?</summary>
+        <p>CS2 en <strong>"Pantalla completa en ventana" (Fullscreen Windowed)</strong>. En pantalla completa exclusiva el overlay no se dibuja.</p>
+      </details>
+      <details>
+        <summary>¿Inyecta algo en el juego?</summary>
+        <p>No. CsTalent es 100% externo: solo lee la memoria del juego, no inyecta DLL, no escribe en el proceso ni usa driver kernel. El disparo del triggerbot va como un click normal.</p>
+      </details>
+      <details>
+        <summary>¿Y cuando CS2 se actualiza?</summary>
+        <p>Si un parche mueve las referencias de memoria, CsTalent lo detecta y te avisa en vez de dibujar mal. Cuando se publican las referencias actualizadas, te llegan solas al abrir mientras tengas licencia o prueba activa.</p>
+      </details>
+      <details>
+        <summary>¿Me pueden sancionar por usarlo?</summary>
+        <p>CsTalent es una herramienta de terceros: usarla en partidas con anticheat (como VAC) puede traer sanciones a tu cuenta. Que sea externo no garantiza pasar desapercibido, así que usalo bajo tu propia responsabilidad.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- ===== CIERRE ===== -->
+  <div class="cta-band reveal">
+    <div class="cta-in">
+      <h2>Probalo hoy, gratis por 7 días</h2>
+      <p>Bajás el .exe, tocás “Probar gratis 7 días” y listo. Sin tarjeta. Si te gusta, elegís plan.</p>
+      <div class="cta-row">
+        <a class="btn btn-lg" href="/download/CsTalent.exe?v=6">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0l-4.5-4.5M12 15l4.5-4.5M4 20h16"/></svg>
+          Descargar y probar gratis
+        </a>
+        <a class="btn btn-lg btn-ghost" href="#planes">Ver planes</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="xsell reveal" style="--x-rgb:57,255,106">
+    <a href="/">
+      <span class="xs-ic"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#ghost"/></svg></span>
+      <p><strong>¿Jugás FiveM?</strong>Spectro: ESP + aim por driver para FiveM. También con 7 días gratis.</p>
+      <span class="go">Ver Spectro →</span>
+    </a>
+  </div>
+
+</main>
+
+<footer>
+  <div class="foot-in">
+    <div>
+      <div class="foot-brand">
+        <svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true"><use href="#reticle"/></svg>
+        <span>CsTalent</span>
+      </div>
+      <p>ESP y triggerbot para Counter-Strike 2. Pagos y licencias gestionados por <a class="lnk" href="https://www.lemonsqueezy.com">Lemon Squeezy</a>.</p>
+      <p>¿Necesitás ayuda con tu compra? Respondé el email que te llega al comprar.</p>
+    </div>
+    <div class="foot-col">
+      <b>Productos</b>
+      <a href="/">Spectro · FiveM</a>
+      <a href="/cstalent/">CsTalent · Counter-Strike 2</a>
+    </div>
+    <div class="foot-col">
+      <b>CsTalent</b>
+      <a href="#funciones">Funciones</a>
+      <a href="#planes">Planes</a>
+      <a href="#faq">Preguntas frecuentes</a>
+    </div>
+  </div>
+  <p class="legal">CsTalent es un software independiente, sin relación con Valve Corporation ni con Counter-Strike. Todas las marcas pertenecen a sus dueños. El uso de herramientas de terceros puede estar prohibido por el juego o por las plataformas de partidas, y es responsabilidad de cada usuario.</p>
+</footer>
+
+<script>
+(function(){
+  var els=[].slice.call(document.querySelectorAll('.reveal'));
+  if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in')});return}
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}});
+  },{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+  els.forEach(function(e,i){e.style.transitionDelay=(i%4)*60+'ms';io.observe(e)});
+})();
+</script>
+
+<script defer src="/_vercel/insights/script.js"></script>
+
+</body>
+</html>
