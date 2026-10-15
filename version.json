@@ -1,6 +1,6 @@
 {
-    "version": "1.3.3",
+    "version": "1.3.4",
     "url": "https://spectrofivem.vercel.app/download/Cheat.App.exe",
-    "sha256": "176430C347BDD7F7596A7213D8571EEF4FE7E4CA13940409CC113F51411694FD",
-    "notas": "Licencias atadas a su producto (una clave de Spectro no abre CsTalent ni al reves)."
+    "sha256": "B7D38AB7E34A8AE891B814B60771423E373AE7FDDB2FE72372D590ADC8E0AAA8",
+    "notas": "Se abre como administrador solo (sin eso no leia el juego) y el sonido de acercamiento viene apagado."
 }
