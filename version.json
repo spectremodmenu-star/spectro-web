@@ -1,6 +1,6 @@
 {
-    "version": "1.3.5",
+    "version": "1.3.6",
     "url": "https://spectrofivem.vercel.app/download/Cheat.App.exe",
-    "sha256": "30A4A61AD0DD7E5207913C976B53E6CD73CDEC2C1575D2DB7FFC191398D77289",
-    "notas": "Detector de admins corregido (ahora marca a los que vuelan), chaleco y arreglar auto andan en cualquier PC (b3258), se abre como administrador y el sonido de acercamiento viene apagado."
+    "sha256": "32EB61BA1AC655358C22AACEE20ED95723C123E8F53ADF97B642ABDDDE6DDBB6",
+    "notas": "Trigger arreglado: dispara apenas hay un enemigo en la mira (no depende del aim) y el click sale por el driver."
 }
