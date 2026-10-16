@@ -24,8 +24,18 @@ async function kv(cmd) {
   return (await r.json()).result;
 }
 
-// Valida una licencia contra Lemon Squeezy (la clave ES la credencial; endpoint publico).
-async function lsValid(key, hwid) {
+// Los offsets de FiveM se piden como "fivem", pero las pruebas y los codigos de Spectro se guardan
+// como "spectro" (trial:spectro:<hwid>): antes se buscaba trial:fivem:<hwid>, que NUNCA existe, y
+// a toda PC con prueba o codigo se le negaban los offsets (solo pasaba quien tenia licencia paga).
+// Producto de offsets -> producto del registro de prueba/codigo.
+const ENTITLEMENT_PRODUCT = { fivem: 'spectro' };
+// Marca del producto = prefijo del product_name de Lemon Squeezy ("Spectro — Mensual", "CsTalent").
+const BRAND = { fivem: 'spectro', spectro: 'spectro', cstalent: 'cstalent' };
+
+// Valida una licencia contra Lemon Squeezy (la clave ES la credencial; endpoint publico) y que
+// sea DE ESTE producto: antes una clave de Spectro bajaba los offsets de CsTalent y al reves.
+// Si LS no manda el nombre del producto se acepta (igual que el exe: no bloquear de mas).
+async function lsValid(key, hwid, product) {
   try {
     const r = await fetch('https://api.lemonsqueezy.com/v1/licenses/validate', {
       method: 'POST',
@@ -33,7 +43,12 @@ async function lsValid(key, hwid) {
       body: `license_key=${encodeURIComponent(key)}&instance_name=${encodeURIComponent(hwid)}`,
     });
     const j = await r.json();
-    return j && (j.valid === true || (j.license_key && j.license_key.status === 'active'));
+    const valid = j && (j.valid === true || (j.license_key && j.license_key.status === 'active'));
+    if (!valid) return false;
+    const name = String((j.meta && j.meta.product_name) || '').trim().toLowerCase();
+    const brand = BRAND[product];
+    if (name && brand && !name.startsWith(brand)) return false;   // clave de OTRO producto
+    return true;
   } catch { return false; }
 }
 
@@ -56,13 +71,14 @@ module.exports = async (req, res) => {
     let ok = false;
 
     // 1) codigo/prueba: registro vivo en KV (dar de baja lo borra -> corta offsets)
-    const raw = await kv(['GET', `trial:${product}:${hwid}`]);
+    const entProduct = ENTITLEMENT_PRODUCT[product] || product;
+    const raw = await kv(['GET', `trial:${entProduct}:${hwid}`]);
     if (raw) {
       const rec = typeof raw === 'string' ? JSON.parse(raw) : raw;
       if (rec && rec.expiresAt > now) ok = true;
     }
-    // 2) licencia paga: validar contra Lemon Squeezy
-    if (!ok && key.length > 0) ok = await lsValid(key, hwid);
+    // 2) licencia paga: validar contra Lemon Squeezy (y que sea de este producto)
+    if (!ok && key.length > 0) ok = await lsValid(key, hwid, product);
 
     if (!ok) { res.status(403).json({ error: 'no_entitlement' }); return; }
 
