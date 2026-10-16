@@ -115,7 +115,8 @@
 
   <div class="card">
     <h2>Offsets del juego (el candado)</h2>
-    <p class="hint" style="margin-bottom:8px">Tras un parche del juego: subí/pegá el <code>offsets.json</code> nuevo (del producto de arriba) y guardalo. A todas las PCs con licencia les llega al reabrir; a un exe sin licencia, no.</p>
+    <p class="hint" style="margin-bottom:8px">Tras un parche del juego: subí/pegá el <code>offsets.json</code> nuevo (del producto de arriba) y guardalo. A todas las PCs con licencia, código o prueba les llega al reabrir; a un exe sin ninguna, no.</p>
+    <p class="hint" style="margin-bottom:8px"><b>FiveM:</b> el mismo JSON lleva los datos del chaleco y del auto: <code>"AdoptedBuild": "b3258"</code> (la build del juego donde se midieron; si el juego del usuario es otra, esas funciones no se activan) y <code>"Adopted": ["chaleco 150c 2e8c", "cocheptr d10", "cochevida 130 280 830 910", "cochenafta 844", "cochevel 7e0 b50 ba0 ad0"]</code>. Si cambiás de build, actualizá los dos campos con los valores nuevos (los de <code>adoptados.txt</code>, una línea por entrada).</p>
     <input type="file" id="o_file" accept=".json,application/json" style="margin-bottom:8px">
     <textarea id="o_text" placeholder="o pegá acá el contenido del offsets.json" style="width:100%;min-height:120px;background:var(--field);border:1px solid var(--line);color:var(--fg);border-radius:9px;padding:10px 12px;font:12.5px Consolas,monospace"></textarea>
     <div class="btns">
