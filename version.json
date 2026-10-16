@@ -1,6 +1,6 @@
-﻿{
-    "version":  "1.3.14",
-    "url":  "https://spectrofivem.vercel.app/download/Cheat.App.exe",
-    "sha256":  "DF04F3A5E58590F894E4BE8EA2DB7B761FDFF3C632C6DF98BF574A20529D4256",
-    "notas":  "Arreglar coche ahora tambien repara ruedas y puertas (si las cazaste), con boton opcional aparte y botones de caza en el menu."
+{
+    "version": "1.3.13",
+    "url": "https://spectrofivem.vercel.app/download/Cheat.App.exe",
+    "sha256": "9C5C02C4D93C2377C935402FBD041FDEB48579E9D6C504EBC2B93D0095691516",
+    "notas": "Optimizacion: el overlay repinta mucho menos con tracers, el hilo del aim duerme cuando no apuntas y el chaleco se lee menos veces."
 }
