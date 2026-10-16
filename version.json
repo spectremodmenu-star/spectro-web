@@ -1,6 +1,6 @@
 {
-    "version": "1.3.9",
+    "version": "1.3.10",
     "url": "https://spectrofivem.vercel.app/download/Cheat.App.exe",
-    "sha256": "57B9575780A19780AED893E0B2DB0BFF76DB9092916630F5B853FA79C4A7322C",
-    "notas": "Arreglar coche y chaleco: ahora reintenta si no detecta el juego, usa los datos de fabrica aunque haya un adoptados.txt vacio y el cartel dice por que no andan. Opcion para apagar los tracers del ESP."
+    "sha256": "0011117C4763A2BE8A0C5BC101786153EFD1719517693C16699B1829D251FB57",
+    "notas": "Tracers: se pueden apagar por tipo (admins, favoritos, amigos, tramposos). Arreglar coche y chaleco mas robustos."
 }
