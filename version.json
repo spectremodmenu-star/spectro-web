@@ -1,6 +1,6 @@
 {
-    "version": "1.3.8",
+    "version": "1.3.9",
     "url": "https://spectrofivem.vercel.app/download/Cheat.App.exe",
-    "sha256": "5473EBF941DC5B2A8B2DAD31CE9FD1F78F414284C8461D71DF21BAD1812404D9",
-    "notas": "Los offsets ahora llegan a las PCs con prueba o codigo, los datos del chaleco y el auto se actualizan desde el panel y avisa si tu FiveM no es la build medida."
+    "sha256": "57B9575780A19780AED893E0B2DB0BFF76DB9092916630F5B853FA79C4A7322C",
+    "notas": "Arreglar coche y chaleco: ahora reintenta si no detecta el juego, usa los datos de fabrica aunque haya un adoptados.txt vacio y el cartel dice por que no andan. Opcion para apagar los tracers del ESP."
 }
