@@ -1,6 +1,6 @@
 {
-    "version": "1.3.10",
+    "version": "1.3.11",
     "url": "https://spectrofivem.vercel.app/download/Cheat.App.exe",
-    "sha256": "0011117C4763A2BE8A0C5BC101786153EFD1719517693C16699B1829D251FB57",
-    "notas": "Tracers: se pueden apagar por tipo (admins, favoritos, amigos, tramposos). Arreglar coche y chaleco mas robustos."
+    "sha256": "72C424300CE3CA1A96F7F0B48F12D67775B60D05FCB01876D90D52185BAED94E",
+    "notas": "ESP: barra de chaleco (azul) de los otros jugadores, junto a la barra de vida."
 }
