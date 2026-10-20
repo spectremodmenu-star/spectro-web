@@ -1,6 +1,6 @@
 ﻿{
-    "version":  "1.4.6",
+    "version":  "1.4.7",
     "url":  "https://spectrofivem.vercel.app/download/Cheat.App.exe",
-    "sha256":  "B8F5034C89B73356C82BFCB4A2D80F45FB74176F4682935C523494815F658628",
-    "notas":  "Nuevo: boton de Borrado de emergencia (borra todo Spectro de la PC + vacia la papelera, para un SS)."
+    "sha256":  "CE3925F5D9C4A92753E5E38871AA646DD699F6C454F9F41A32C20EB9663A3943",
+    "notas":  "Ahora Spectro guarda todos sus archivos en una sola carpeta (AppData), la carpeta del exe queda limpia. Borrado de emergencia, reparar ruedas en cualquier vehiculo, config compartida."
 }
