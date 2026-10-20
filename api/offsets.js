@@ -1,0 +1,107 @@
+// Offsets GATEADOS — el candado recurrente.
+//
+// Los offsets (donde leer en memoria) son el dato esencial y PERECEDERO del cheat:
+// cada parche del juego los rompe. Este endpoint los entrega SOLO a una PC con
+// entitlement valido (codigo/prueba viva en KV, o licencia valida en Lemon Squeezy).
+// Un exe clonado/craqueado sin licencia NO recibe offsets nuevos -> al proximo parche
+// del juego deja de funcionar solo. Dar de baja a alguien (borra su registro) tambien
+// le corta los offsets.
+//
+//   POST /api/offsets  {product, hwid, key?}  -> 200 con el offsets.json | 403 sin entitlement
+//
+// Los offsets viven en KV (offsets:<product>), se actualizan con /api/code op=setoffsets.
+
+async function kv(cmd) {
+  const url = process.env.KV_REST_API_URL;
+  const token = process.env.KV_REST_API_TOKEN;
+  if (!url || !token) throw new Error('KV_NOT_CONFIGURED');
+  const r = await fetch(url, {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify(cmd),
+  });
+  if (!r.ok) throw new Error('KV_HTTP_' + r.status);
+  return (await r.json()).result;
+}
+
+// Los offsets de FiveM se piden como "fivem", pero las pruebas y los codigos de Spectro se guardan
+// como "spectro" (trial:spectro:<hwid>): antes se buscaba trial:fivem:<hwid>, que NUNCA existe, y
+// a toda PC con prueba o codigo se le negaban los offsets (solo pasaba quien tenia licencia paga).
+// Producto de offsets -> producto del registro de prueba/codigo.
+const ENTITLEMENT_PRODUCT = { fivem: 'spectro' };
+// Marca del producto = prefijo del product_name de Lemon Squeezy ("Spectro — Mensual", "CsTalent").
+const BRAND = { fivem: 'spectro', spectro: 'spectro', cstalent: 'cstalent' };
+
+// Valida una licencia contra Lemon Squeezy (la clave ES la credencial; endpoint publico) y que
+// sea DE ESTE producto: antes una clave de Spectro bajaba los offsets de CsTalent y al reves.
+// Si LS no manda el nombre del producto se acepta (igual que el exe: no bloquear de mas).
+async function lsValid(key, hwid, product) {
+  try {
+    const r = await fetch('https://api.lemonsqueezy.com/v1/licenses/validate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded', Accept: 'application/json' },
+      body: `license_key=${encodeURIComponent(key)}&instance_name=${encodeURIComponent(hwid)}`,
+    });
+    const j = await r.json();
+    const valid = j && (j.valid === true || (j.license_key && j.license_key.status === 'active'));
+    if (!valid) return false;
+    const name = String((j.meta && j.meta.product_name) || '').trim().toLowerCase();
+    const brand = BRAND[product];
+    if (name && brand && !name.startsWith(brand)) return false;   // clave de OTRO producto
+    return true;
+  } catch { return false; }
+}
+
+module.exports = async (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  if (req.method === 'OPTIONS') { res.status(204).end(); return; }
+  if (req.method !== 'POST') { res.status(405).json({ error: 'method' }); return; }
+
+  let body = req.body;
+  if (typeof body === 'string') { try { body = JSON.parse(body); } catch { body = {}; } }
+  body = body || {};
+  const product = String(body.product || '').trim().toLowerCase();
+  const hwid = String(body.hwid || '').trim();
+  const key = String(body.key || '').trim();
+  if (!product || hwid.length < 3) { res.status(400).json({ error: 'args' }); return; }
+
+  try {
+    const now = Date.now();
+    let ok = false;
+
+    // 1) codigo/prueba: registro vivo en KV (dar de baja lo borra -> corta offsets)
+    const entProduct = ENTITLEMENT_PRODUCT[product] || product;
+    const raw = await kv(['GET', `trial:${entProduct}:${hwid}`]);
+    if (raw) {
+      const rec = typeof raw === 'string' ? JSON.parse(raw) : raw;
+      if (rec && rec.expiresAt > now) ok = true;
+    }
+    // 2) licencia paga: validar contra Lemon Squeezy (y que sea de este producto)
+    if (!ok && key.length > 0) ok = await lsValid(key, hwid, product);
+
+    if (!ok) { res.status(403).json({ error: 'no_entitlement' }); return; }
+
+    const offs = await kv(['GET', `offsets:${product}`]);
+    if (!offs) { res.status(404).json({ error: 'no_offsets' }); return; }
+
+    // MARCA DE AGUA: inyecto la huella de la PC (base64, con nombre disimulado) en el
+    // offsets que entrego. Si alguien FILTRA su offsets.json, ese campo revela de que
+    // licencia salio -> se lo da de baja. El exe ignora campos desconocidos.
+    let out;
+    try {
+      const str = (typeof offs === 'string' ? offs : JSON.stringify(offs)).replace(/^﻿/, '');
+      const o = JSON.parse(str);
+      o._sig = Buffer.from(`${hwid}|${Date.now()}`).toString('base64');
+      out = JSON.stringify(o);
+    } catch {
+      out = typeof offs === 'string' ? offs : JSON.stringify(offs);
+    }
+
+    res.setHeader('Content-Type', 'application/json; charset=utf-8');
+    res.setHeader('Cache-Control', 'no-store');
+    res.status(200).send(out);
+  } catch (e) {
+    res.status(500).json({ error: 'server' });
+  }
+};
