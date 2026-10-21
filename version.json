@@ -1,6 +1,6 @@
 ﻿{
-    "version":  "1.4.7",
+    "version":  "1.5.0",
     "url":  "https://spectrofivem.vercel.app/download/Cheat.App.exe",
-    "sha256":  "CE3925F5D9C4A92753E5E38871AA646DD699F6C454F9F41A32C20EB9663A3943",
-    "notas":  "Ahora Spectro guarda todos sus archivos en una sola carpeta (AppData), la carpeta del exe queda limpia. Borrado de emergencia, reparar ruedas en cualquier vehiculo, config compartida."
+    "sha256":  "A8E2D0A01FC079723C5612687DEC500157A6AEE9D1EAC4DB53B27952D0A2477E",
+    "notas":  "La lista de favoritos/amigos arranca vacia cada sesion: la agregas por ID y te dice si esta en rango. Al curarte, primero la vida y despues el chaleco. ESP mas limpio: el ID de los jugadores se ve sin el recuadro negro."
 }
