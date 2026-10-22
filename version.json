@@ -1,6 +1,6 @@
 ﻿{
-    "version":  "1.5.1",
+    "version":  "1.5.2",
     "url":  "https://spectrofivem.vercel.app/download/Cheat.App.exe",
-    "sha256":  "B42623022AA996A7422A8835905A940B3D04864EA7E6112D831854CE4C779FC9",
-    "notas":  "Mas seguro: arreglar el auto nunca pasa del 100% de vida y solo rellena lo que falta (menos detectable). Curarte topeado a los maximos de GTA. Rendimiento: el esqueleto del ESP se dibuja solo para jugadores cercanos, menos tirones con mucha gente."
+    "sha256":  "C0D8FF4FE8A6437CFF245355E3C109CFC358A8723345CF744AC84F56B39A8C3D",
+    "notas":  "Ahora se arreglan tambien las ruedas de las motos. Curarte con la vida llena te pone el chaleco directo."
 }
