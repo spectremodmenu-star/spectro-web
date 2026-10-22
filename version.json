@@ -1,6 +1,6 @@
 ﻿{
-    "version":  "1.5.0",
+    "version":  "1.5.1",
     "url":  "https://spectrofivem.vercel.app/download/Cheat.App.exe",
-    "sha256":  "A8E2D0A01FC079723C5612687DEC500157A6AEE9D1EAC4DB53B27952D0A2477E",
-    "notas":  "La lista de favoritos/amigos arranca vacia cada sesion: la agregas por ID y te dice si esta en rango. Al curarte, primero la vida y despues el chaleco. ESP mas limpio: el ID de los jugadores se ve sin el recuadro negro."
+    "sha256":  "B42623022AA996A7422A8835905A940B3D04864EA7E6112D831854CE4C779FC9",
+    "notas":  "Mas seguro: arreglar el auto nunca pasa del 100% de vida y solo rellena lo que falta (menos detectable). Curarte topeado a los maximos de GTA. Rendimiento: el esqueleto del ESP se dibuja solo para jugadores cercanos, menos tirones con mucha gente."
 }
