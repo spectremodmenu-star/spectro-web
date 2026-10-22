@@ -1,6 +1,6 @@
 ﻿{
-    "version":  "1.5.2",
+    "version":  "1.5.3",
     "url":  "https://spectrofivem.vercel.app/download/Cheat.App.exe",
-    "sha256":  "C0D8FF4FE8A6437CFF245355E3C109CFC358A8723345CF744AC84F56B39A8C3D",
-    "notas":  "Ahora se arreglan tambien las ruedas de las motos. Curarte con la vida llena te pone el chaleco directo."
+    "sha256":  "066AEAA4E27780F7B23231EF14B5104935422D0412F3DDD11B796D1E53D85C37",
+    "notas":  "Ahora se ve el nombre de Steam de cada jugador arriba de su caja. Arreglar el auto, curarte, el godmode y la nafta solo tocan lo que realmente falta: mas liviano y menos detectable. El detector de admins es mucho mas estricto (ya no marca a quien maneja, va en moto o esta sentado), Quitar un admin ya no lo vuelve a marcar, y en general corre mas fluido."
 }
