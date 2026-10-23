@@ -15,7 +15,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/style.css?v=7">
+<link rel="stylesheet" href="/style.css?v=8">
 <script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
@@ -52,6 +52,7 @@
       <a href="#como">Cómo funciona</a>
       <a href="#planes">Planes</a>
       <a href="#faq">FAQ</a>
+      <a href="/afiliados/">Afiliados</a>
     </nav>
     <a class="btn btn-sm" href="#planes">Comprar</a>
   </div>
@@ -276,6 +277,23 @@
     <p class="refund-note">Todas las ventas son finales: probalo gratis 7 días antes de comprar. <a href="/legal/#reembolsos">Ver política de reembolsos</a>.</p>
   </section>
 
+  <!-- ===== AFILIADOS ===== -->
+  <section id="afiliados" class="section">
+    <div class="aff reveal">
+      <div class="aff-copy">
+        <p class="kicker">Afiliados</p>
+        <h2>Recomendá Spectro y ganá plata</h2>
+        <p>Anotate como afiliado, compartí tu link o tu código y cobrá el <strong>20%</strong> de cada venta que traigas. Quien compra con tu código tiene <strong>10% de descuento</strong>.</p>
+        <ul class="aff-pts">
+          <li>20% de cada venta</li>
+          <li>10% off para quien compra</li>
+          <li>Vale para Spectro y CsTalent</li>
+        </ul>
+      </div>
+      <a class="btn btn-lg" href="/afiliados/">Quiero ser afiliado</a>
+    </div>
+  </section>
+
   <!-- ===== FAQ ===== -->
   <section id="faq" class="section">
     <div class="section-head reveal">
@@ -363,6 +381,7 @@
       <a href="#funciones">Funciones</a>
       <a href="#planes">Planes</a>
       <a href="#faq">Preguntas frecuentes</a>
+      <a href="/afiliados/">Programa de afiliados</a>
     </div>
     <div class="foot-col">
       <b>Legal</b>
@@ -384,6 +403,9 @@
   els.forEach(function(e,i){e.style.transitionDelay=(i%4)*60+'ms';io.observe(e)});
 })();
 </script>
+
+<!-- Código/link de afiliado: aplica el 10% y le cuenta la venta al afiliado. -->
+<script defer src="/ref.js?v=1"></script>
 
 <!-- Vercel Web Analytics (tráfico). Se activa en el panel del proyecto -> Analytics. -->
 <script defer src="/_vercel/insights/script.js"></script>

@@ -114,6 +114,28 @@
   </div>
 
   <div class="card">
+    <h2>Afiliados</h2>
+    <p class="hint" style="margin-bottom:8px">1) Aprobá la solicitud en Lemon Squeezy (Affiliates). 2) Copiá su ID: es lo que va después de <code>aff=</code> en su link. 3) Cargalo acá con su código corto. 4) Pasale su link: <code>https://spectrofivem.vercel.app/?ref=CODIGO</code>. Vale para los dos productos (no depende del selector de arriba).</p>
+    <div class="row">
+      <div><label>Código corto</label><input id="a_alias" placeholder="MATI" autocomplete="off"></div>
+      <div><label>ID en Lemon Squeezy</label><input id="a_lsid" placeholder="lo de aff=…" autocomplete="off"></div>
+      <div><label>Nombre / nota</label><input id="a_name" placeholder="opcional" autocomplete="off"></div>
+    </div>
+    <div class="btns">
+      <button onclick="affAdd()">Guardar afiliado</button>
+      <button class="ghost" onclick="affList()">Listar afiliados</button>
+      <button class="danger" onclick="affDel()">Borrar (por código)</button>
+    </div>
+    <label style="margin-top:16px">Código de descuento de Lemon Squeezy (10% para quien compra por un afiliado)</label>
+    <div class="row">
+      <div style="flex:2"><input id="a_disc" placeholder="el código del descuento creado en LS" autocomplete="off"></div>
+      <div style="flex:0"><button class="ghost" style="margin-top:0" onclick="affDisc()">Guardar descuento</button></div>
+    </div>
+    <p class="hint">Se crea una vez en Lemon Squeezy (Store → Discounts, 10%, para los 6 productos, solo primer pago). No lo publiques: la landing lo aplica sola cuando alguien entra con un código de afiliado.</p>
+    <div id="a_out" class="out"></div>
+  </div>
+
+  <div class="card">
     <h2>Offsets del juego (el candado)</h2>
     <p class="hint" style="margin-bottom:8px">Tras un parche del juego: subí/pegá el <code>offsets.json</code> nuevo (del producto de arriba) y guardalo. A todas las PCs con licencia, código o prueba les llega al reabrir; a un exe sin ninguna, no.</p>
     <p class="hint" style="margin-bottom:8px"><b>FiveM:</b> el mismo JSON lleva los datos del chaleco y del auto: <code>"AdoptedBuild": "b3258"</code> (la build del juego donde se midieron; si el juego del usuario es otra, esas funciones no se activan) y <code>"Adopted": ["chaleco 150c 2e8c", "cocheptr d10", "cochevida 130 280 830 910", "cochenafta 844", "cochevel 7e0 b50 ba0 ad0"]</code>. Si cambiás de build, actualizá los dos campos con los valores nuevos (los de <code>adoptados.txt</code>, una línea por entrada).</p>
@@ -136,7 +158,7 @@
 </div>
 
 <script>
-const API='https://spectrofivem.vercel.app/api/code';
+const API='/api/code';   // mismo sitio (producción o preview de Vercel)
 const $=id=>document.getElementById(id);
 $('secret').value=sessionStorage.getItem('adm')||'';
 $('secret').addEventListener('input',e=>sessionStorage.setItem('adm',e.target.value));
@@ -220,6 +242,54 @@ async function offStatus(){
   if(r.status===401){ $('o_out').textContent='❌ Secreto incorrecto.'; return; }
   if(r.ok){ $('o_out').textContent = r.j.has ? ('Hay offsets de '+r.j.product+': '+r.j.bytes+' bytes cargados.') : ('No hay offsets cargados para '+r.j.product+'.'); }
   else $('o_out').textContent=JSON.stringify(r.j,null,2);
+}
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+async function affAdd(){
+  if(!need('a_out'))return;
+  $('a_out').textContent='...';
+  const r=await call({op:'affadd',admin:sec(),alias:$('a_alias').value,lsId:$('a_lsid').value,name:$('a_name').value});
+  if(r.status===401){ $('a_out').textContent='❌ Secreto incorrecto.'; return; }
+  if(r.ok&&r.j.ok){
+    const link='https://spectrofivem.vercel.app/?ref='+r.j.alias;
+    $('a_out').innerHTML='✅ Afiliado <b style="color:#39ff6a">'+esc(r.j.alias)+'</b> guardado (ID LS '+esc(r.j.lsId)+').\n\nSu link: <code>'+esc(link)+'</code>';
+  } else if(r.j.error==='alias') $('a_out').textContent='❌ Código inválido: solo letras y números, de 3 a 20.';
+  else if(r.j.error==='lsId') $('a_out').textContent='❌ Falta el ID de Lemon Squeezy (lo de aff=… en su link).';
+  else $('a_out').textContent=JSON.stringify(r.j,null,2);
+}
+async function affList(){
+  if(!need('a_out'))return;
+  $('a_out').textContent='...';
+  const r=await call({op:'afflist',admin:sec()});
+  if(r.status===401){ $('a_out').textContent='❌ Secreto incorrecto.'; return; }
+  if(!r.ok){ $('a_out').textContent=JSON.stringify(r.j,null,2); return; }
+  const disc='Descuento configurado: '+(r.j.discount?'<code>'+esc(r.j.discount)+'</code>':'<b style="color:#ff5b5b">ninguno (los códigos no dan 10%)</b>')+'\n';
+  if(!r.j.count){ $('a_out').innerHTML=disc+'(todavía no hay afiliados cargados)'; return; }
+  let h=disc+'Afiliados: '+r.j.count+'\n<table><tr><th>código</th><th>ID LS</th><th>nombre</th><th>alta</th></tr>';
+  for(const a of r.j.affiliates) h+='<tr><td>'+esc(a.alias)+'</td><td>'+esc(a.lsId)+'</td><td>'+esc(a.name)+'</td><td>'+(a.createdAt?new Date(a.createdAt).toLocaleDateString():'-')+'</td></tr>';
+  $('a_out').innerHTML=h+'</table>';
+}
+async function affDisc(){
+  if(!need('a_out'))return;
+  const d=$('a_disc').value.trim();
+  if(!d){ $('a_out').textContent='Pegá el código del descuento creado en Lemon Squeezy.'; return; }
+  $('a_out').textContent='...';
+  const r=await call({op:'affcfg',admin:sec(),discount:d});
+  if(r.status===401){ $('a_out').textContent='❌ Secreto incorrecto.'; return; }
+  if(r.ok&&r.j.ok) $('a_out').innerHTML='✅ Descuento guardado: <code>'+esc(r.j.discount)+'</code>. Los códigos de afiliado ya aplican el 10%.';
+  else if(r.j.error==='discount') $('a_out').textContent='❌ Código inválido: solo letras y números (como en Lemon Squeezy).';
+  else $('a_out').textContent=JSON.stringify(r.j,null,2);
+}
+async function affDel(){
+  if(!need('a_out'))return;
+  const alias=$('a_alias').value.trim();
+  if(!alias){ $('a_out').textContent='Poné el código corto del afiliado a borrar.'; return; }
+  if(!confirm('¿Borrar al afiliado '+alias+'? Su link y su código dejan de dar el 10%.')) return;
+  $('a_out').textContent='...';
+  const r=await call({op:'affdel',admin:sec(),alias});
+  if(r.status===401){ $('a_out').textContent='❌ Secreto incorrecto.'; return; }
+  if(r.ok&&r.j.ok) $('a_out').textContent='✅ Afiliado '+r.j.alias+' borrado.';
+  else if(r.status===404) $('a_out').textContent='No existe un afiliado con ese código.';
+  else $('a_out').textContent=JSON.stringify(r.j,null,2);
 }
 function decodeSig(){
   const v=$('w_sig').value.trim();

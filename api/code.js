@@ -18,6 +18,16 @@
 //                   Surte efecto cuando la PC vuelve a estar online (igual que una
 //                   licencia: offline hay una gracia por la cache local del exe).
 //
+// Afiliados (el programa de afiliados de Lemon Squeezy cuenta las ventas y les paga;
+// aca solo vive el CODIGO CORTO de cada afiliado -> su id de LS, y el descuento del 10%):
+//   POST /api/code {op:'affref', ref}  -> (publico) ref = alias o id de LS de un afiliado
+//                   cargado. Devuelve {aff, alias, discount} para que la landing arme el
+//                   link de compra con ?aff=<id>&checkout[discount_code]=<discount>.
+//   POST /api/code {op:'affcfg', admin, discount}  -> guarda el codigo de descuento de LS (10%)
+//   POST /api/code {op:'affadd', admin, alias, lsId, name?}  -> carga/edita un afiliado
+//   POST /api/code {op:'afflist', admin}                   -> lista los afiliados
+//   POST /api/code {op:'affdel', admin, alias}             -> lo borra (deja de dar el 10%)
+//
 // El secreto NO vive aca: solo su hash (ver .secrets/admin.txt en la PC del autor).
 // Env vars: KV_REST_API_URL + KV_REST_API_TOKEN (las setea la integracion KV de Vercel).
 
@@ -47,6 +57,13 @@ function parse(v) { return typeof v === 'string' ? JSON.parse(v) : v; }
 
 // Normaliza un codigo igual que el exe: sin espacios, mayusculas.
 function normCode(s) { return String(s || '').replace(/\s+/g, '').toUpperCase(); }
+
+// El codigo de descuento de Lemon Squeezy (10% para quien compra por un afiliado) vive en
+// KV (affcfg:discount), se carga desde el panel: este repo es publico y no tiene que verse.
+
+// Alias de afiliado: A-Z y 0-9, 3 a 20. Id de LS: tal cual viene en su link (?aff=...).
+function normAlias(s) { const a = normCode(s); return /^[A-Z0-9]{3,20}$/.test(a) ? a : ''; }
+function normLsId(s) { const v = String(s || '').trim(); return /^[A-Za-z0-9_-]{1,64}$/.test(v) ? v : ''; }
 
 module.exports = async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -212,6 +229,81 @@ module.exports = async (req, res) => {
       const s = await kv(['GET', `offsets:${product}`]);
       const len = s ? (typeof s === 'string' ? s.length : JSON.stringify(s).length) : 0;
       res.status(200).json({ product, has: !!s, bytes: len });
+      return;
+    }
+
+    // --- Afiliados ----------------------------------------------------------
+    // Valen para los dos productos (misma tienda de LS), por eso las claves no llevan producto.
+    if (op === 'affref') {
+      const ref = String(body.ref || '').trim();
+      let alias = normAlias(ref);
+      let rec = alias ? parse(await kv(['GET', `aff:${alias}`])) : null;
+      if (!rec) {                                   // no es un alias: probar como id de LS
+        const id = normLsId(ref);
+        alias = id ? await kv(['GET', `affid:${id}`]) : null;
+        rec = alias ? parse(await kv(['GET', `aff:${alias}`])) : null;
+      }
+      if (!rec) { res.status(404).json({ error: 'ref' }); return; }
+      const discount = await kv(['GET', 'affcfg:discount']);
+      res.status(200).json({ aff: rec.lsId, alias, discount: discount || null });
+      return;
+    }
+    if (op === 'affcfg') {
+      const given = crypto.createHash('sha256').update(String(body.admin || '')).digest('hex');
+      if (given !== ADMIN_HASH) { res.status(401).json({ error: 'admin' }); return; }
+      const d = normCode(body.discount);
+      if (!/^[A-Z0-9]{3,256}$/.test(d)) { res.status(400).json({ error: 'discount' }); return; }
+      await kv(['SET', 'affcfg:discount', d]);
+      res.status(200).json({ ok: true, discount: d });
+      return;
+    }
+    if (op === 'affadd') {
+      const given = crypto.createHash('sha256').update(String(body.admin || '')).digest('hex');
+      if (given !== ADMIN_HASH) { res.status(401).json({ error: 'admin' }); return; }
+      const alias = normAlias(body.alias);
+      const lsId = normLsId(body.lsId);
+      if (!alias) { res.status(400).json({ error: 'alias' }); return; }
+      if (!lsId) { res.status(400).json({ error: 'lsId' }); return; }
+      const prev = parse(await kv(['GET', `aff:${alias}`]));
+      if (prev && prev.lsId && prev.lsId !== lsId) await kv(['DEL', `affid:${prev.lsId}`]);
+      const rec = { lsId, name: String(body.name || '').slice(0, 80), createdAt: prev ? prev.createdAt : now };
+      await kv(['SET', `aff:${alias}`, JSON.stringify(rec)]);
+      await kv(['SET', `affid:${lsId}`, alias]);
+      res.status(200).json({ ok: true, alias, lsId });
+      return;
+    }
+    if (op === 'afflist') {
+      const given = crypto.createHash('sha256').update(String(body.admin || '')).digest('hex');
+      if (given !== ADMIN_HASH) { res.status(401).json({ error: 'admin' }); return; }
+      let cursor = '0', keys = [], guard = 0;
+      do {
+        const r = await kv(['SCAN', cursor, 'MATCH', 'aff:*', 'COUNT', 500]);
+        cursor = Array.isArray(r) ? String(r[0]) : '0';
+        if (Array.isArray(r) && Array.isArray(r[1])) keys = keys.concat(r[1]);
+        guard++;
+      } while (cursor !== '0' && guard < 30);
+      const out = [];
+      for (const k of keys) {
+        const rec = parse(await kv(['GET', k]));
+        if (!rec) continue;
+        out.push({ alias: k.replace('aff:', ''), lsId: rec.lsId, name: rec.name || '',
+                   createdAt: rec.createdAt ? new Date(rec.createdAt).toISOString() : null });
+      }
+      out.sort((a, b) => a.alias.localeCompare(b.alias));
+      const discount = await kv(['GET', 'affcfg:discount']);
+      res.status(200).json({ count: out.length, affiliates: out, discount: discount || null });
+      return;
+    }
+    if (op === 'affdel') {
+      const given = crypto.createHash('sha256').update(String(body.admin || '')).digest('hex');
+      if (given !== ADMIN_HASH) { res.status(401).json({ error: 'admin' }); return; }
+      const alias = normAlias(body.alias);
+      if (!alias) { res.status(400).json({ error: 'alias' }); return; }
+      const rec = parse(await kv(['GET', `aff:${alias}`]));
+      if (!rec) { res.status(404).json({ error: 'alias' }); return; }
+      await kv(['DEL', `aff:${alias}`]);
+      if (rec.lsId) await kv(['DEL', `affid:${rec.lsId}`]);
+      res.status(200).json({ ok: true, alias });
       return;
     }
 

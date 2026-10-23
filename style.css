@@ -262,6 +262,35 @@ footer a.lnk{color:var(--accent)}
 .refund-note a{color:var(--muted);text-decoration:underline;text-underline-offset:3px}
 .refund-note a:hover{color:var(--accent)}
 
+/* ---------- afiliados: código aplicado + cajita (ref.js) y bloque "Quiero ser afiliado" ---------- */
+.ref-banner{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px 16px;
+  max-width:640px;margin:0 auto 26px;padding:12px 18px;border-radius:14px;text-align:center;
+  background:var(--accent-weak);border:1px solid var(--accent-line);color:var(--fg);font-size:15px}
+.ref-banner b{color:var(--accent);font-weight:700;letter-spacing:.04em}
+.ref-banner strong{font-weight:600}
+.ref-x{background:none;border:0;padding:0;color:var(--muted);font:inherit;font-size:13.5px;
+  text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.ref-x:hover{color:var(--accent)}
+.ref-form{max-width:440px;margin:26px auto 0;text-align:center}
+.ref-banner[hidden],.ref-form[hidden]{display:none}
+.ref-form label{display:block;color:var(--muted);font-size:14px;margin-bottom:8px}
+.ref-row{display:flex;gap:8px}
+.ref-row input{flex:1;min-width:0;background:var(--surface);border:1px solid var(--line-2);border-radius:10px;
+  color:var(--fg);font:500 15px "Inter",sans-serif;padding:9px 14px;text-transform:uppercase;letter-spacing:.04em}
+.ref-row input::placeholder{color:var(--muted-2);text-transform:none;letter-spacing:0}
+.ref-row input:focus{outline:none;border-color:var(--accent)}
+.ref-msg{min-height:1.4em;margin:8px 0 0;font-size:13.5px;color:var(--muted)}
+.ref-msg.err{color:var(--danger)}
+.aff{display:flex;flex-wrap:wrap;align-items:center;gap:22px 32px;padding:32px;border-radius:var(--radius);
+  background:linear-gradient(180deg,var(--surface-2),var(--surface));border:1px solid var(--line)}
+.aff-copy{flex:1 1 420px}
+.aff-copy h2{font-size:clamp(24px,3.4vw,32px);line-height:1.15;margin:0 0 8px}
+.aff-copy p{margin:0;color:var(--muted)}
+.aff-copy p strong{color:var(--fg);font-weight:600}
+.aff-pts{list-style:none;display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 0;padding:0}
+.aff-pts li{padding:6px 13px;border-radius:999px;font-size:13.5px;color:var(--fg);
+  background:var(--accent-weak);border:1px solid var(--accent-line)}
+
 /* ---------- páginas de texto (legal) ---------- */
 .prose{max-width:760px;margin-inline:auto;padding:64px 24px 24px}
 .prose h1{font-size:clamp(32px,5vw,46px);line-height:1.1;margin:0 0 10px}
@@ -274,9 +303,11 @@ footer a.lnk{color:var(--accent)}
 .prose h3{font-size:17px;margin:26px 0 6px}
 .prose p,.prose li{color:#c9d2db;font-size:16px}
 .prose p{margin:0 0 14px}
-.prose ul{padding-left:22px;margin:8px 0 16px;display:grid;gap:7px}
+.prose ul,.prose ol{padding-left:22px;margin:8px 0 16px;display:grid;gap:7px}
 .prose strong{color:var(--fg);font-weight:600}
 .prose a{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
+.prose a.btn{color:var(--accent-ink);text-decoration:none}
+.prose code{background:var(--accent-weak);color:var(--accent);padding:1px 6px;border-radius:5px;font-size:.88em;word-break:break-all}
 .prose .callout{margin:18px 0;padding:16px 20px;border-radius:14px;background:var(--accent-weak);
   border:1px solid var(--accent-line);color:var(--fg);font-size:15.5px}
 
@@ -321,4 +352,6 @@ footer a.lnk{color:var(--accent)}
   .cta-in{padding:44px 20px}
   .xsell a{flex-wrap:wrap}
   .xsell .go{margin-left:0}
+  .aff{padding:24px 20px}
+  .aff > .btn{width:100%}
 }
