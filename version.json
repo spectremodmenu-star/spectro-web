@@ -1,6 +1,6 @@
 ﻿{
-    "version":  "1.5.3",
+    "version":  "1.5.4",
     "url":  "https://spectrofivem.vercel.app/download/Cheat.App.exe",
-    "sha256":  "066AEAA4E27780F7B23231EF14B5104935422D0412F3DDD11B796D1E53D85C37",
-    "notas":  "Ahora se ve el nombre de Steam de cada jugador arriba de su caja. Arreglar el auto, curarte, el godmode y la nafta solo tocan lo que realmente falta: mas liviano y menos detectable. El detector de admins es mucho mas estricto (ya no marca a quien maneja, va en moto o esta sentado), Quitar un admin ya no lo vuelve a marcar, y en general corre mas fluido."
+    "sha256":  "404109D733198ABE8E62A35F3E7091659F0953E9BBF0D6C67FAAFBE397C66848",
+    "notas":  "Mas seguro: el programa carga los datos del juego desde el servidor en cada arranque (no quedan en tu PC). Buscador nuevo en Favoritos: por nombre o ID, te dice si esta cerca, en el server o si se fue. El detector de admins ya no marca a quien va en moto. Los nombres que faltan se completan solos."
 }
